@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#cbffffff"
+    android:layout_marginBottom="8dp"
+
+    android:id="@+id/layout_journey">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1f1f1f"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:text="From:"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1f1f1f"
+            android:textSize="20sp"
+            android:text="Manila"
+            android:id="@+id/tv_src"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1f1f1f"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:text="To:"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1f1f1f"
+            android:textSize="20sp"
+            android:text="Makati"
+            android:id="@+id/tv_dst"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1f1f1f"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:text="Plate #:"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1f1f1f"
+            android:textSize="20sp"
+            android:text="ABC-1234"
+            android:id="@+id/tv_platenum"/>
+    </LinearLayout>
+
+</LinearLayout>
