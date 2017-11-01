@@ -20,6 +20,10 @@ public class HistoryActivity extends AppCompatActivity {
         journeys.add(new Journey("Makati", "Manila","ABC-5678"));
         journeys.add(new Journey("Quezon City", "Makati","DEF-1234"));
         journeys.add(new Journey("Imus", "Baclaran","GHI-1234"));
+        journeys.add(new Journey("MOA", "Makati","XYZ-1234"));
+        journeys.add(new Journey("Makati", "MOA","XYZ-5678"));
+        journeys.add(new Journey("SM", "Makati","LMN-1234"));
+        journeys.add(new Journey("Imus", "SM","LMN-1234"));
 
         JourneyAdapter js = new JourneyAdapter(journeys);
         rvJourney.setAdapter(js);
