@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".HistoryActivity" />
         <activity android:name=".ContactActivity" />
-        <activity android:name=".CreateActivity"></activity>
+        <activity android:name=".CreateActivity" />
+        <activity android:name=".ExtendActivity"></activity>
     </application>
 
 </manifest>

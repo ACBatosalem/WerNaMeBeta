@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.dlsu.mobapde.wername.ExtendActivity"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:id="@+id/backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        app:srcCompat="?attr/actionModeCloseDrawable"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EXTEND TIME"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/et_eHours"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="ETA hours"
+            android:background="#cbffffff"
+            android:padding="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/et_eMinutes"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="ETA minutes"
+            android:background="#cbffffff"
+            android:padding="5dp"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/btn_now"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Send Later"
+            android:background="#b31f1f"
+            android:layout_marginRight="10dp"
+            android:textSize="20sp"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/btn_later"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Send Now"
+            android:background="#0abc70"
+            android:textSize="20sp"
+            android:textColor="#000"/>
+
+    </LinearLayout>
+
+</LinearLayout>
