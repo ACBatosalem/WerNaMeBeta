@@ -20,6 +20,9 @@
         <activity android:name=".ContactActivity" />
         <activity android:name=".CreateActivity" />
         <activity android:name=".ExtendActivity"></activity>
+        <receiver android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

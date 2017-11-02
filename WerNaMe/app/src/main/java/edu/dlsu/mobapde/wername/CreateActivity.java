@@ -24,6 +24,7 @@ public class CreateActivity extends AppCompatActivity {
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int PENDINGINTENT_SA = 0;
     public static final int PENDINGINTENT_BR = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +53,16 @@ public class CreateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Create an alarm to create notif
 
-                int minutes = Integer.parseInt(etMinutes.getText().toString());
-                int hours = Integer.parseInt(etHours.getText().toString());
-
                 AlarmManager alarmManager
                         = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
+
+                int minutes = Integer.parseInt(etMinutes.getText().toString());
+                int hours = Integer.parseInt(etHours.getText().toString());
 
                 Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
                 PendingIntent bcPI
                         = PendingIntent.getBroadcast(getBaseContext(),
                         PENDINGINTENT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
 
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                         minutes*1000 + hours*60*60*1000 + SystemClock.elapsedRealtime(),
@@ -74,14 +74,11 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create an alarm to create notif
+                AlarmManager alarmManager
+                        = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
 
                 int minutes = Integer.parseInt(etMinutes.getText().toString());
                 int hours = Integer.parseInt(etHours.getText().toString());
-
-                Log.d("yo", "onClick: " + minutes + " " + hours);
-
-                AlarmManager alarmManager
-                        = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
 
                 Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
                 PendingIntent bcPI
@@ -90,11 +87,11 @@ public class CreateActivity extends AppCompatActivity {
 
 
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        minutes*1000 + hours*60*60*1000 + SystemClock.elapsedRealtime(),
+                        minutes*1000 + hours*60*60*1000  + SystemClock.elapsedRealtime(),
                         bcPI);
             }
         });
-        buttonLater.setOnClickListener(cl);
+        //buttonLater.setOnClickListener(cl);
 
     }
 }
