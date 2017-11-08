@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        app:srcCompat="@android:drawable/ic_menu_compass" />
+        android:src="@drawable/ellipse_1"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +24,7 @@
         android:textSize="30sp"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,18 +49,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/history">
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:id="@+id/imageView2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
                 android:paddingTop="7dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/history_icon" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="History"
                 android:gravity="center"
-                android:textColor="#fff"/>
+                android:textColor="#fff"
+                android:textSize="20sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -69,17 +74,18 @@
             android:orientation="vertical"
             android:id="@+id/ice">
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
                 android:paddingTop="7dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ice_icon"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ICE List"
                 android:gravity="center"
-                android:textColor="#fff"/>
+                android:textColor="#fff"
+                android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -88,17 +94,18 @@
             android:orientation="vertical"
             android:id="@+id/create">
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
                 android:paddingTop="7dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/cj_icon"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create Journey"
                 android:gravity="center"
-                android:textColor="#fff"/>
+                android:textColor="#fff"
+                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        app:srcCompat="?android:attr/homeAsUpIndicator" />
+        android:layout_margin="5dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/arrow_back_icon" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,9 +40,9 @@
         android:orientation="horizontal"
         android:layout_below="@+id/textView2">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/add_contact_icon"
             android:layout_marginRight="10dp"/>
 
         <TextView

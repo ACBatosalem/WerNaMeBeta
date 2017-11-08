@@ -10,11 +10,11 @@
     tools:context="edu.dlsu.mobapde.wername.CreateActivity">
 
     <ImageView
-        android:id="@+id/backbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        app:srcCompat="?attr/actionModeCloseDrawable"/>
+        android:id="@+id/imageView"
+        android:layout_margin="5dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/arrow_back_icon" />
 
     <TextView
         android:id="@+id/header"
