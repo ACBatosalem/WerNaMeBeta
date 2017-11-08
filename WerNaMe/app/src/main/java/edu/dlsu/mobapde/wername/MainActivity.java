@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new DatabaseHelper(getBaseContext());
+
         history = (LinearLayout) findViewById(R.id.history);
         ice_list = (LinearLayout) findViewById(R.id.ice);
         createJourney = (LinearLayout) findViewById(R.id.create);
