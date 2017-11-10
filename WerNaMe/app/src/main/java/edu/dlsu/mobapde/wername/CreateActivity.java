@@ -5,9 +5,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class CreateActivity extends AppCompatActivity {
     EditText etHours, etMinutes, etMessage, etSrc, etDest, etPlateNum;
     String phoneNo, message;
     DatabaseHelper databaseHelper;
+    ImageView ivBack;
 
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int PENDINGINTENT_SA = 0;
@@ -53,6 +57,8 @@ public class CreateActivity extends AppCompatActivity {
         etSrc = (EditText) findViewById(R.id.et_src);
         etDest = (EditText) findViewById(R.id.et_dest);
         etPlateNum = (EditText) findViewById(R.id.et_plateNum);
+
+        ivBack = (ImageView) findViewById(R.id.imageView);
 
         spinnerContacts = (Spinner) findViewById(R.id.sp_contact);
         ArrayList<String> names = new ArrayList<>();
@@ -84,11 +90,19 @@ public class CreateActivity extends AppCompatActivity {
                 String plateNum = etPlateNum.getText().toString();
 
                 addJourney(src, dest, plateNum);
-                sendSMSMessage();
+               // sendSMSMessage();
                 int minutes = Integer.parseInt(etMinutes.getText().toString());
                 int hours = Integer.parseInt(etHours.getText().toString());
                 setAlarm(minutes, hours);
 
+                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor dspEditor = dsp.edit();
+                dspEditor.putBoolean("trip", true);
+                dspEditor.commit();
+
+                Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
+                startActivity(i);
+                finish();
 
             }
         });
@@ -104,6 +118,23 @@ public class CreateActivity extends AppCompatActivity {
                 int minutes = Integer.parseInt(etMinutes.getText().toString());
                 int hours = Integer.parseInt(etHours.getText().toString());
                 setAlarm(minutes, hours);
+
+                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor dspEditor = dsp.edit();
+                dspEditor.putBoolean("trip", true);
+                dspEditor.commit();
+
+                Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
 

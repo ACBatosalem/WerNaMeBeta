@@ -5,45 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg"
+    tools:context="edu.dlsu.mobapde.wername.ArrivedActivity">
 
-    <ImageView
-        android:id="@+id/backbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        app:srcCompat="?attr/actionModeCloseDrawable"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <Button
+        android:id="@+id/btn_extend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="#6ebeca"
+        android:hint="Extend"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_arrived"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:weightSum="2">
+        android:layout_marginBottom="150dp"
+        android:background="#FFFA80"
+        android:hint="Arrived"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:layout_gravity="center"/>
 
-        <Button
-            android:id="@+id/btn_now"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="#b31f1f"
-            android:hint="Extend"
-            android:textColor="#000"
-            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btn_later"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#0abc70"
-            android:hint="Arrived"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
-    </LinearLayout>
 
 </LinearLayout>

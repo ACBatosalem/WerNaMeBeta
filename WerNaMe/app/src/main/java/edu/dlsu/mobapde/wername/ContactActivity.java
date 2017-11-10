@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class ContactActivity extends AppCompatActivity {
     RecyclerView rvContact;
     LinearLayout addLayout;
     DatabaseHelper databaseHelper;
+    ImageView ivBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +33,20 @@ public class ContactActivity extends AppCompatActivity {
 
         rvContact = (RecyclerView) findViewById(R.id.rv_contacts);
 
+        ivBack = (ImageView) findViewById(R.id.imageView);
         ContactAdapter cs = new ContactAdapter(getBaseContext(),
                 databaseHelper.getAllContacts());
         rvContact.setAdapter(cs);
         rvContact.setLayoutManager(new LinearLayoutManager(
                 getBaseContext(),LinearLayoutManager.VERTICAL,false));
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
         addLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

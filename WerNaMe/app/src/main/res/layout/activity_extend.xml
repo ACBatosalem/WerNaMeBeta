@@ -65,7 +65,7 @@
         android:layout_marginRight="15dp"
         android:weightSum="2">
         <Button
-            android:id="@+id/btn_now"
+            android:id="@+id/btn_ext_later"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:textColor="#000" />
 
         <Button
-            android:id="@+id/btn_later"
+            android:id="@+id/btn_ext_now"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
