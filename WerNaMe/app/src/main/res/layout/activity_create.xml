@@ -26,7 +26,7 @@
         android:layout_gravity="center"/>
 
     <EditText
-        android:id="@+id/et_currLoc"
+        android:id="@+id/et_src"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Current Location"

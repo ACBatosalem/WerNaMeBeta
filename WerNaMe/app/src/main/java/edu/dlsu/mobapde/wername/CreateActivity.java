@@ -29,7 +29,7 @@ import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSE
 public class CreateActivity extends AppCompatActivity {
     Spinner spinnerContacts;
     Button buttonNow, buttonLater;
-    EditText etHours, etMinutes, etMessage;
+    EditText etHours, etMinutes, etMessage, etSrc, etDest, etPlateNum;
     String phoneNo, message;
     DatabaseHelper databaseHelper;
 
@@ -43,7 +43,6 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-
         databaseHelper = new DatabaseHelper(getBaseContext());
 
         buttonNow = (Button) findViewById(R.id.btn_now);
@@ -51,6 +50,9 @@ public class CreateActivity extends AppCompatActivity {
         etHours = (EditText) findViewById(R.id.et_hours);
         etMinutes = (EditText) findViewById(R.id.et_minutes);
         etMessage = (EditText) findViewById(R.id.et_text);
+        etSrc = (EditText) findViewById(R.id.et_src);
+        etDest = (EditText) findViewById(R.id.et_dest);
+        etPlateNum = (EditText) findViewById(R.id.et_plateNum);
 
         spinnerContacts = (Spinner) findViewById(R.id.sp_contact);
         ArrayList<String> names = new ArrayList<>();
@@ -77,6 +79,11 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create an alarm to create notif
+                String src = etSrc.getText().toString();
+                String dest = etDest.getText().toString();
+                String plateNum = etPlateNum.getText().toString();
+
+                addJourney(src, dest, plateNum);
                 sendSMSMessage();
                 int minutes = Integer.parseInt(etMinutes.getText().toString());
                 int hours = Integer.parseInt(etHours.getText().toString());
@@ -89,14 +96,21 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create an alarm to create notif
+                String src = etSrc.getText().toString();
+                String dest = etDest.getText().toString();
+                String plateNum = etPlateNum.getText().toString();
+
+                addJourney(src, dest, plateNum);
                 int minutes = Integer.parseInt(etMinutes.getText().toString());
                 int hours = Integer.parseInt(etHours.getText().toString());
                 setAlarm(minutes, hours);
-
-
             }
         });
 
+    }
+
+    private void addJourney(String source, String destination, String plateNumber) {
+        databaseHelper.addJourney(new Journey(source, destination, plateNumber));
     }
 
     private void setAlarm(int minutes, int hours) {

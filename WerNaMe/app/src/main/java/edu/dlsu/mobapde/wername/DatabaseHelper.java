@@ -54,16 +54,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Add Journey
-   /* public boolean addJourney(Journey journey) {
+    public boolean addJourney(Journey journey) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(Journey.COLUMN_SOURCE, journey.getSource());
         contentValues.put(Journey.COLUMN_DESTINATION, journey.getDestination());
         contentValues.put(Journey.COLUMN_PLATENUMBER, journey.getPlate_number());
-        contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
-        contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());
-        contentValues.put(Journey.COLUMN_TEXTSENT, journey.getTextSent());
+        //contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
+        //contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());
+        //contentValues.put(Journey.COLUMN_TEXTSENT, journey.getTextSent());
 
         long id = db.insert(Journey.TABLE_NAME,
                 null,
@@ -87,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int rows = db.update(Journey.TABLE_NAME,
                 contentValues,
                 Journey.COLUMN_ID + "=?",
-                new String[] (currentId+""));
+                new String[]{currentId+""});
         db.close();
         return (rows > 0);
     }
@@ -97,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(Journey.TABLE_NAME,
                 Journey.COLUMN_ID + " =?",
-                new String[](id+""));
+                new String[]{id+""});
         db.close();
         return (rows > 0);
     }
@@ -108,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.query(Journey.TABLE_NAME,
                 null, // SELECT *
                 Journey.COLUMN_ID + " =? ", // where clause
-                new String[](id+""), // where args
+                new String[]{id+""}, // where args
                 null, // groupby
                 null, // having
                 null); // orderby
@@ -143,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         return null;
-    }*/
+    }
 
     // Add Contact
     public boolean addContact(Contact contact) {
@@ -218,5 +218,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         return db.query(Contact.TABLE_NAME,null,null,null,null,null,null);
+    }
+
+    // Retrieve All Journeys
+    public Cursor getAllJourneysCursor() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        return db.query(Journey.TABLE_NAME, null, null, null, null, null, null);
     }
 }

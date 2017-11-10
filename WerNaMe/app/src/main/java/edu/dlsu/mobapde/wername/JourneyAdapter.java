@@ -1,5 +1,7 @@
 package edu.dlsu.mobapde.wername;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +18,21 @@ import java.util.ArrayList;
  */
 
 public class JourneyAdapter
-        extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
+        extends CursorRecyclerViewAdapter<JourneyAdapter.JourneyViewHolder>{
 
-    ArrayList<Journey> journeys;
+    public JourneyAdapter(Context context, Cursor cursor) {
+        super(context, cursor);
+    }
 
-    public JourneyAdapter(ArrayList<Journey> data){
-        this.journeys = data;
+    @Override
+    public void onBindViewHolder(JourneyViewHolder holder, Cursor cursor) {
+        String source = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_SOURCE));
+        String destination = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_DESTINATION));
+        String plateNumber = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_PLATENUMBER));
+
+        holder.tvSource.setText(source);
+        holder.tvDesti.setText(destination);
+        holder.tvPNum.setText(plateNumber);
     }
 
     @Override
@@ -32,19 +43,10 @@ public class JourneyAdapter
         return new JourneyViewHolder(v);
     }
 
-    @Override
-    public void onBindViewHolder(JourneyViewHolder holder, int position) {
-        Journey currentJourney = journeys.get(position);
-        holder.tvSource.setText(currentJourney.getSource());
-        holder.tvDesti.setText(currentJourney.getDestination());
-        holder.tvPNum.setText(currentJourney.getPlate_number());
-
-    }
-
-    @Override
-    public int getItemCount() {
+    //@Override
+    /*public int getItemCount() {
         return journeys.size();
-    }
+    }*/
 
     public class JourneyViewHolder
             extends RecyclerView.ViewHolder{
