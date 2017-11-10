@@ -1,5 +1,7 @@
 package edu.dlsu.mobapde.wername;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,31 +15,28 @@ import java.util.ArrayList;
  */
 
 public class ContactAdapter
-        extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
-    ArrayList<Contact> contacts;
+        extends CursorRecyclerViewAdapter<ContactAdapter.ContactViewHolder>{
 
-    public ContactAdapter(ArrayList<Contact> data){
-        this.contacts = data;
+    public ContactAdapter(Context context, Cursor cursor) {
+        super(context,cursor);
     }
 
     @Override
-    public ContactAdapter.ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflate the layout item_restaurant
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_contact, parent, false);
-        return new ContactAdapter.ContactViewHolder(v);
+        return new ContactViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ContactAdapter.ContactViewHolder holder, int position) {
-        Contact currentContact = contacts.get(position);
-        holder.tvName.setText(currentContact.getName());
-        holder.tvNumber.setText(currentContact.getNumber());
-    }
+    public void onBindViewHolder(ContactViewHolder holder, Cursor cursor) {
+        String number = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_NUMBER));
+        String name = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_NAME));
+        holder.tvNumber.setText(number);
+        holder.tvName.setText(name);
 
-    @Override
-    public int getItemCount() {
-        return contacts.size();
+
     }
 
     public class ContactViewHolder

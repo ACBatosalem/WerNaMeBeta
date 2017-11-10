@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sql = "CREATE TABLE " + Journey.TABLE_NAME + " ("
-                + Journey.COLUMN_ID + " INTEGER AUTOINCREMENT PRIMARY KEY, "
+                + Journey.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Journey.COLUMN_SOURCE + " TEXT, "
                 + Journey.COLUMN_DESTINATION + "TEXT, "
                 + Journey.COLUMN_PLATENUMBER + " TEXT, "
@@ -34,8 +34,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql);
 
         sql = "CREATE TABLE " + Contact.TABLE_NAME + " ("
+                + Contact.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + Contact.COLUMN_NAME + " TEXT, "
-                + Contact.COLUMN_NUMBER + " NUMERIC "
+                + Contact.COLUMN_NUMBER + " TEXT "
                 + ");";
         sqLiteDatabase.execSQL(sql);
     }
@@ -53,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Add Journey
-    public boolean addJourney(Journey journey) {
+   /* public boolean addJourney(Journey journey) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -142,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         return null;
-    }
+    }*/
 
     // Add Contact
     public boolean addContact(Contact contact) {
@@ -170,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int rows = db.update(Contact.TABLE_NAME,
                 contentValues,
                 Contact.COLUMN_ID + "=?",       // not sure how this would work tbf
-                new String[] (currentId+""));
+                new String[] {currentId+""});
         db.close();
         return (rows > 0);
     }
@@ -180,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(Journey.TABLE_NAME,
                 Contact.COLUMN_ID + " =?",
-                new String[](id+""));
+                new String[]{id+""});
         db.close();
         return (rows > 0);
     }
@@ -191,7 +192,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.query(Contact.TABLE_NAME,
                 null, // SELECT *
                 Contact.COLUMN_ID + " =? ", // where clause
-                new String[](id+""), // where args
+                new String[]{id+""}, // where args
                 null, // groupby
                 null, // having
                 null); // orderby
@@ -203,7 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String number = c.getString(c.getColumnIndex(Contact.COLUMN_NUMBER));
 
             p.setName(name);
-            p.getNumber(number);
+            p.setNumber(number);
         }
 
         c.close();
@@ -213,7 +214,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieve all Contacts
-    public ArrayList<Contact> getAllContacts() {
+    public Cursor getAllContacts() {
+
         SQLiteDatabase db = getReadableDatabase();
+        return db.query(Contact.TABLE_NAME,null,null,null,null,null,null);
     }
 }

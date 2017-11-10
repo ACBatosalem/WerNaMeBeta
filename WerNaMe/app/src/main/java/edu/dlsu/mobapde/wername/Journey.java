@@ -25,6 +25,12 @@ public class Journey {
 
     public Journey() {}
 
+    public Journey(String source, String destination, String plate_number) {
+        this.source = source;
+        this.destination = destination;
+        this.plate_number = plate_number;
+    }
+
     public long getId() {
         return id;
     }
