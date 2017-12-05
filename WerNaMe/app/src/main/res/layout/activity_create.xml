@@ -70,8 +70,8 @@
         android:layout_marginRight="15dp"
         android:textSize="20sp"
         android:background="@android:drawable/btn_dropdown"
-        >
-    </Spinner>
+        android:prompt="@string/contact_prompt"
+        />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -81,26 +81,28 @@
         android:layout_marginRight="15dp"
         android:weightSum="2">
 
-        <EditText
-            android:id="@+id/et_hours"
+        <Spinner
+            android:id="@+id/sp_hours"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="ETA hours"
-            android:background="#cbffffff"
+            android:hint="@string/hours_prompt"
+            android:background="@android:drawable/btn_dropdown"
             android:padding="5dp"
             android:layout_marginRight="10dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:prompt="@string/hours_prompt"/>
 
-        <EditText
-            android:id="@+id/et_minutes"
+        <Spinner
+            android:id="@+id/sp_minutes"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="ETA minutes"
-            android:background="#cbffffff"
+            android:background="@android:drawable/btn_dropdown"
             android:padding="5dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:prompt="@string/minutes_prompt"/>
 
     </LinearLayout>
 

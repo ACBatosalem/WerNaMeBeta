@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER;
 
 public class CreateActivity extends AppCompatActivity {
-    Spinner spinnerContacts;
+    Spinner spinnerContacts, spinnerHours, spinnerMinutes;
     Button buttonNow, buttonLater;
     EditText etHours, etMinutes, etMessage, etSrc, etDest, etPlateNum;
     String phoneNo, message;
@@ -51,25 +51,18 @@ public class CreateActivity extends AppCompatActivity {
 
         buttonNow = (Button) findViewById(R.id.btn_now);
         buttonLater = (Button) findViewById(R.id.btn_later);
-        etHours = (EditText) findViewById(R.id.et_hours);
-        etMinutes = (EditText) findViewById(R.id.et_minutes);
         etMessage = (EditText) findViewById(R.id.et_text);
         etSrc = (EditText) findViewById(R.id.et_src);
         etDest = (EditText) findViewById(R.id.et_dest);
         etPlateNum = (EditText) findViewById(R.id.et_plateNum);
-
         ivBack = (ImageView) findViewById(R.id.imageView);
 
+        // Spinner for Contacts
         spinnerContacts = (Spinner) findViewById(R.id.sp_contact);
         ArrayList<String> names = new ArrayList<>();
-        names.add("AAAAA");
-        names.add("BBBBB");
-        names.add("CCCCC");
-        names.add("DDDDD");
-        names.add("EEEEE");
 
+        // Adapter for Contacts Spinner
         Cursor cursor = databaseHelper.getAllContacts();
-
         if(cursor.getCount() > 0) {
             String[] from = new String[]{Contact.COLUMN_NAME};
             int[] to = new int[]{android.R.id.text1};
@@ -81,6 +74,30 @@ public class CreateActivity extends AppCompatActivity {
             spinnerContacts.setAdapter(mAdapter);
         }
 
+        // Spinner for ETA Hours
+        spinnerHours = (Spinner) findViewById(R.id.sp_hours);
+        ArrayList<String> hours = new ArrayList<>();
+        for(int i=0;i<24;i++)
+            hours.add(String.valueOf(i));
+
+        // Adapter for ETA Hours Spinner
+        ArrayAdapter<String> hoursArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, hours);
+        hoursArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHours.setAdapter(hoursArrayAdapter);
+
+        // Spinner for ETA Minutes
+        spinnerMinutes = (Spinner) findViewById(R.id.sp_minutes);
+        ArrayList<String> minutes = new ArrayList<>();
+        for(int i=0;i<59;i++)
+            minutes.add(String.valueOf(i));
+
+        // Adapter for ETA Minutes Spinner
+        ArrayAdapter<String> minutesArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, minutes);
+        minutesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMinutes.setAdapter(minutesArrayAdapter);
+
         buttonNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,8 +108,8 @@ public class CreateActivity extends AppCompatActivity {
 
                 addJourney(src, dest, plateNum);
                // sendSMSMessage();
-                int minutes = Integer.parseInt(etMinutes.getText().toString());
-                int hours = Integer.parseInt(etHours.getText().toString());
+                int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
+                int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
                 setAlarm(minutes, hours);
 
                 SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -159,7 +176,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     protected void sendSMSMessage() {
-        phoneNo = "09950553416";
+        phoneNo = "09298642815";
         message = etMessage.getText().toString();
         Log.d("mmhmm", "sendSMSMessage: " + message);
         try {
