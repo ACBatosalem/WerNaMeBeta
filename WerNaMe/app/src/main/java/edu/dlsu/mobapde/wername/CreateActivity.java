@@ -16,6 +16,8 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,11 +34,11 @@ import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSE
 
 public class CreateActivity extends AppCompatActivity {
     Spinner spinnerContacts, spinnerHours, spinnerMinutes;
-    Button buttonNow, buttonLater;
-    EditText etHours, etMinutes, etMessage, etSrc, etDest, etPlateNum;
+    Button buttonSend;
+    EditText etMessage, etPlateNum;
     String phoneNo, message;
     DatabaseHelper databaseHelper;
-    ImageView ivBack;
+    TextView createText, contactText, historyText;
 
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int PENDINGINTENT_SA = 0;
@@ -49,13 +52,17 @@ public class CreateActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(getBaseContext());
 
-        buttonNow = (Button) findViewById(R.id.btn_now);
-        buttonLater = (Button) findViewById(R.id.btn_later);
+        buttonSend = (Button) findViewById(R.id.btn_send);
         etMessage = (EditText) findViewById(R.id.et_text);
-        etSrc = (EditText) findViewById(R.id.et_src);
-        etDest = (EditText) findViewById(R.id.et_dest);
         etPlateNum = (EditText) findViewById(R.id.et_plateNum);
-        ivBack = (ImageView) findViewById(R.id.imageView);
+        createText = (TextView) findViewById(R.id.create);
+        contactText = (TextView) findViewById(R.id.contacts);
+        historyText = (TextView) findViewById(R.id.history);
+
+      /*  String udata="Create";
+        SpannableString content = new SpannableString(udata);
+        content.setSpan(new UnderlineSpan(), 0, udata.length(), 0);//where first 0 shows the starting and udata.length() shows the ending span.if you want to span only part of it than you can change these values like 5,8 then it will underline part of it.
+        createText.setText(content);*/
 
         // Spinner for Contacts
         spinnerContacts = (Spinner) findViewById(R.id.sp_contact);
@@ -89,7 +96,7 @@ public class CreateActivity extends AppCompatActivity {
         // Spinner for ETA Minutes
         spinnerMinutes = (Spinner) findViewById(R.id.sp_minutes);
         ArrayList<String> minutes = new ArrayList<>();
-        for(int i=0;i<59;i++)
+        for(int i=0;i<60;i++)
             minutes.add(String.valueOf(i));
 
         // Adapter for ETA Minutes Spinner
@@ -98,7 +105,7 @@ public class CreateActivity extends AppCompatActivity {
         minutesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMinutes.setAdapter(minutesArrayAdapter);
 
-        buttonNow.setOnClickListener(new View.OnClickListener() {
+        buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Create an alarm to create notif
@@ -123,34 +130,21 @@ public class CreateActivity extends AppCompatActivity {
 
             }
         });
-        buttonLater.setOnClickListener(new View.OnClickListener() {
+
+        contactText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create an alarm to create notif
-                String src = etSrc.getText().toString();
-                String dest = etDest.getText().toString();
-                String plateNum = etPlateNum.getText().toString();
-
-                addJourney(src, dest, plateNum);
-                int minutes = Integer.parseInt(etMinutes.getText().toString());
-                int hours = Integer.parseInt(etHours.getText().toString());
-                setAlarm(minutes, hours);
-
-                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor dspEditor = dsp.edit();
-                dspEditor.putBoolean("trip", true);
-                dspEditor.commit();
-
-                Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
+                Intent i = new Intent(getBaseContext(), ContactActivity.class);
                 startActivity(i);
                 finish();
             }
         });
 
-        ivBack.setOnClickListener(new View.OnClickListener() {
+        historyText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(RESULT_CANCELED);
+                Intent i = new Intent(getBaseContext(), HistoryActivity.class);
+                startActivity(i);
                 finish();
             }
         });

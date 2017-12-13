@@ -17,7 +17,13 @@
 
         <activity android:name=".HistoryActivity" />
         <activity android:name=".ContactActivity" />
-        <activity android:name=".CreateActivity" />
+        <activity android:name=".CreateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ExtendActivity" />
 
 
@@ -26,13 +32,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ArrivedActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".ArrivedActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

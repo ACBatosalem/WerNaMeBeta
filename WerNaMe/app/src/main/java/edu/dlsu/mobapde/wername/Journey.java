@@ -21,7 +21,7 @@ public class Journey {
     private String plate_number;
     private String estimatedTA;
     private String actualTA;
-    private long textSentTo;
+    private String textSentTo;
 
     public Journey() {}
 
@@ -79,11 +79,11 @@ public class Journey {
         this.actualTA = actualTA;
     }
 
-    public long getTextSent() {
-        return textSent;
+    public String getTextSent() {
+        return textSentTo;
     }
 
-    public void setTextSent(long textSent) {
-        this.textSent = textSent;
+    public void setTextSent(String textSent) {
+        this.textSentTo = textSent;
     }
 }

@@ -4,50 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="#fff"
     android:orientation="vertical"
     android:weightSum="4"
     tools:context="edu.dlsu.mobapde.wername.CreateActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_margin="5dp"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:src="@drawable/arrow_back_icon" />
-
     <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CREATE JOURNEY"
+        android:text="WerNaMe?"
         android:textColor="#fff"
-        android:textSize="30sp"
-        android:layout_gravity="center"/>
+        android:textSize="20sp"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#3c94db"/>
 
-    <EditText
-        android:id="@+id/et_src"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Current Location"
-        android:background="#cbffffff"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:padding="5dp"
-        android:textSize="20sp"/>
-
-    <EditText
-        android:id="@+id/et_dest"
+        android:weightSum="3"
+        android:background="#b2ecf0"
+        >
+        <TextView
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create"
+            android:textColor="#fff"
+            android:background="#02bcd5"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:id="@+id/contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contacts"
+            android:textColor="#7eb0b7"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:id="@+id/history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="History"
+            android:textColor="#7eb0b7"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Destination"
-        android:background="#cbffffff"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:padding="5dp"
-        android:textSize="20sp"/>
+        android:weightSum="2">
+        <Button
+            android:id="@+id/btn_src"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:text="Source"/>
+        <Button
+            android:id="@+id/btn_dest"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:text="Destination"/>
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/et_plateNum"
@@ -69,6 +111,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textSize="20sp"
+        android:spinnerMode="dialog"
         android:background="@android:drawable/btn_dropdown"
         android:prompt="@string/contact_prompt"
         />
@@ -89,6 +132,7 @@
             android:hint="@string/hours_prompt"
             android:background="@android:drawable/btn_dropdown"
             android:padding="5dp"
+            android:spinnerMode="dialog"
             android:layout_marginRight="10dp"
             android:textSize="20sp"
             android:prompt="@string/hours_prompt"/>
@@ -101,6 +145,7 @@
             android:hint="ETA minutes"
             android:background="@android:drawable/btn_dropdown"
             android:padding="5dp"
+            android:spinnerMode="dialog"
             android:textSize="20sp"
             android:prompt="@string/minutes_prompt"/>
 
@@ -119,37 +164,18 @@
         android:padding="5dp"
         android:textSize="20sp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:weightSum="2">
-        <Button
-            android:id="@+id/btn_later"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Send Later"
-            android:background="#b31f1f"
-            android:padding="5dp"
-            android:layout_marginRight="10dp"
-            android:textSize="20sp"
-            android:textColor="#000" />
+        android:background="#3c94db"
+        android:text="Send"
+        android:padding="5dp"
+        android:textColor="#ffffff"
+        android:textSize="17sp" />
 
-        <Button
-            android:id="@+id/btn_now"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Send Now"
-            android:background="#0abc70"
-            android:padding="5dp"
-            android:textSize="20sp"
-            android:textColor="#000"/>
-
-    </LinearLayout>
 
 </LinearLayout>

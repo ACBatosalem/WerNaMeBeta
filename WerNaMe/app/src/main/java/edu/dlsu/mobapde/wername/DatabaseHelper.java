@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Journey.COLUMN_PLATENUMBER + " TEXT, "
                 + Journey.COLUMN_ESTIMATEDTA + " TEXT, "
                 + Journey.COLUMN_ACTUALTA + " TEXT, "
-                + Journey.COLUMN_TEXTSENTTO + " INTEGER "
+                + Journey.COLUMN_TEXTSENTTO + " TEXT "
                 + ");";
         Log.d("Query", sql);
         sqLiteDatabase.execSQL(sql);
@@ -84,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Journey.COLUMN_PLATENUMBER, newJourney.getPlate_number());
         contentValues.put(Journey.COLUMN_ESTIMATEDTA, newJourney.getEstimatedTA());
         contentValues.put(Journey.COLUMN_ACTUALTA, newJourney.getActualTA());
-        contentValues.put(Journey.COLUMN_TEXTSENT, newJourney.getTextSent());
+        contentValues.put(Journey.COLUMN_TEXTSENTTO, newJourney.getTextSent());
 
         int rows = db.update(Journey.TABLE_NAME,
                 contentValues,
@@ -123,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String plateNum = c.getString(c.getColumnIndex(Journey.COLUMN_PLATENUMBER));
             String eta = c.getString(c.getColumnIndex(Journey.COLUMN_ESTIMATEDTA));
             String ata = c.getString(c.getColumnIndex(Journey.COLUMN_ACTUALTA));
-            String textSent = c.getString(c.getColumnIndex(Journey.COLUMN_TEXTSENT));
+            String textSent = c.getString(c.getColumnIndex(Journey.COLUMN_TEXTSENTTO));
 
             j.setSource(source);
             j.setDestination(destination);

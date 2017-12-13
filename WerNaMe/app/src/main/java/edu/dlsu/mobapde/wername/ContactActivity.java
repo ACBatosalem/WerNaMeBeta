@@ -8,10 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,7 @@ public class ContactActivity extends AppCompatActivity {
     RecyclerView rvContact;
     LinearLayout addLayout;
     DatabaseHelper databaseHelper;
-    ImageView ivBack;
+    TextView createText, contactText, historyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +36,45 @@ public class ContactActivity extends AppCompatActivity {
 
         rvContact = (RecyclerView) findViewById(R.id.rv_contacts);
 
-        ivBack = (ImageView) findViewById(R.id.imageView);
+        createText = (TextView) findViewById(R.id.create);
+        contactText = (TextView) findViewById(R.id.contacts);
+        historyText = (TextView) findViewById(R.id.history);
+
+      /*  String udata="Contacts";
+        SpannableString content = new SpannableString(udata);
+        content.setSpan(new UnderlineSpan(), 0, udata.length(), 0);//where first 0 shows the starting and udata.length() shows the ending span.if you want to span only part of it than you can change these values like 5,8 then it will underline part of it.
+        contactText.setText(content);*/
+
         ContactAdapter cs = new ContactAdapter(getBaseContext(),
                 databaseHelper.getAllContacts());
         rvContact.setAdapter(cs);
         rvContact.setLayoutManager(new LinearLayoutManager(
                 getBaseContext(),LinearLayoutManager.VERTICAL,false));
 
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
         addLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+            }
+        });
+
+        createText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), CreateActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        historyText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), HistoryActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
