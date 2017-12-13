@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Journey.COLUMN_PLATENUMBER + " TEXT, "
                 + Journey.COLUMN_ESTIMATEDTA + " TEXT, "
                 + Journey.COLUMN_ACTUALTA + " TEXT, "
-                + Journey.COLUMN_TEXTSENT + " TEXT "
+                + Journey.COLUMN_TEXTSENTTO + " INTEGER "
                 + ");";
         Log.d("Query", sql);
         sqLiteDatabase.execSQL(sql);

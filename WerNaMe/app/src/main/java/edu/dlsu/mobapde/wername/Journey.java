@@ -13,7 +13,7 @@ public class Journey {
     public static final String COLUMN_PLATENUMBER = "plateNum";
     public static final String COLUMN_ESTIMATEDTA = "estTA";
     public static final String COLUMN_ACTUALTA = "actTA";
-    public static final String COLUMN_TEXTSENT = "textSent";
+    public static final String COLUMN_TEXTSENTTO = "textSentTo";
 
     private long id;
     private String source;
@@ -21,7 +21,7 @@ public class Journey {
     private String plate_number;
     private String estimatedTA;
     private String actualTA;
-    private String textSent;
+    private long textSentTo;
 
     public Journey() {}
 
@@ -79,11 +79,11 @@ public class Journey {
         this.actualTA = actualTA;
     }
 
-    public String getTextSent() {
+    public long getTextSent() {
         return textSent;
     }
 
-    public void setTextSent(String textSent) {
+    public void setTextSent(long textSent) {
         this.textSent = textSent;
     }
 }
