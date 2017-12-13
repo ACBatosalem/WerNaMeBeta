@@ -10,21 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Drew Houston"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textColor="#000"
             android:id="@+id/tv_icename"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="09991234567"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textColor="#000"
             android:id="@+id/tv_icenum"/>
     </LinearLayout>
