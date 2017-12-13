@@ -28,13 +28,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import java.util.ArrayList;
 
 import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER;
 
 public class CreateActivity extends AppCompatActivity {
     Spinner spinnerContacts, spinnerHours, spinnerMinutes;
-    Button buttonSend;
+    Button buttonSend, buttonSrc, buttonDesti;
     EditText etMessage, etPlateNum;
     String phoneNo, message;
     DatabaseHelper databaseHelper;
@@ -44,6 +49,8 @@ public class CreateActivity extends AppCompatActivity {
     public static final int PENDINGINTENT_SA = 0;
     public static final int PENDINGINTENT_BR = 1;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
+    private static final int PLACE_PICKER_SRC_REQUEST = 1;
+    private static final int PLACE_PICKER_DEST_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,8 @@ public class CreateActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getBaseContext());
 
         buttonSend = (Button) findViewById(R.id.btn_send);
+        buttonSrc = (Button) findViewById(R.id.btn_src);
+        buttonDesti = (Button) findViewById(R.id.btn_dest);
         etMessage = (EditText) findViewById(R.id.et_text);
         etPlateNum = (EditText) findViewById(R.id.et_plateNum);
         createText = (TextView) findViewById(R.id.create);
@@ -105,12 +114,47 @@ public class CreateActivity extends AppCompatActivity {
         minutesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMinutes.setAdapter(minutesArrayAdapter);
 
+        /* Button Listeners */
+        buttonSrc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+                Intent intent;
+                try {
+                    intent = builder.build(getApplicationContext());
+                    startActivityForResult(intent, PLACE_PICKER_SRC_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonDesti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+                Intent intent;
+                try {
+                    intent = builder.build(getApplicationContext());
+                    startActivityForResult(intent, PLACE_PICKER_DEST_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Create an alarm to create notif
-                String src = etSrc.getText().toString();
-                String dest = etDest.getText().toString();
+                String src = buttonSrc.getText().toString();
+                String dest = buttonDesti.getText().toString();
                 String plateNum = etPlateNum.getText().toString();
 
                 addJourney(src, dest, plateNum);
@@ -148,7 +192,26 @@ public class CreateActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == PLACE_PICKER_SRC_REQUEST) {
+            System.out.println("Hello World");
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(intent, this);
+                //String address = String.format("Place: %s", place.getName());
+                buttonSrc.setText(place.getName());
+            }
+            else
+                System.out.println(resultCode);
+        }
+        else if (requestCode == PLACE_PICKER_DEST_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(intent, this);
+                //String address = String.format("Place: %s", place.getName());
+                buttonDesti.setText(place.getName());
+            }
+        }
     }
 
     private void addJourney(String source, String destination, String plateNumber) {
