@@ -56,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Add Journey
-    public boolean addJourney(Journey journey) {
+    public long addJourney(Journey journey) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -71,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 contentValues);
         db.close();
-        return (id != -1);
+        return id;
     }
 
     // Edit Journey

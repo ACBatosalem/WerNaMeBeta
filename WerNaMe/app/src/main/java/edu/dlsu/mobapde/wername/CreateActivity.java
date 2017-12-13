@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,8 @@ import java.util.ArrayList;
 
 import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER;
 
-public class CreateActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity
+        implements TextDialog.TextDialogListener{
     Spinner spinnerContacts, spinnerHours, spinnerMinutes;
     Button buttonSend, buttonSrc, buttonDesti;
     EditText etMessage, etPlateNum;
@@ -157,7 +159,7 @@ public class CreateActivity extends AppCompatActivity {
                 String dest = buttonDesti.getText().toString();
                 String plateNum = etPlateNum.getText().toString();
 
-                addJourney(src, dest, plateNum);
+                long id = addJourney(src, dest, plateNum);
                // sendSMSMessage();
                 int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
                 int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
@@ -165,12 +167,15 @@ public class CreateActivity extends AppCompatActivity {
 
                 SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor dspEditor = dsp.edit();
-                dspEditor.putBoolean("trip", true);
+                dspEditor.putLong("trip", id);
                 dspEditor.commit();
 
-                Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
+                TextDialog td = new TextDialog();
+                td.show(getSupportFragmentManager(), "");
+
+               /* Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
                 startActivity(i);
-                finish();
+                finish();*/
 
             }
         });
@@ -214,8 +219,8 @@ public class CreateActivity extends AppCompatActivity {
         }
     }
 
-    private void addJourney(String source, String destination, String plateNumber) {
-        databaseHelper.addJourney(new Journey(source, destination, plateNumber));
+    private long addJourney(String source, String destination, String plateNumber) {
+        return databaseHelper.addJourney(new Journey(source, destination, plateNumber));
     }
 
     private void setAlarm(int minutes, int hours) {
@@ -248,4 +253,11 @@ public class CreateActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onDialogClick(boolean sendText) {
+
+    }
+
+
 }
