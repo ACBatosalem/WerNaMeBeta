@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SCHEMA = "wername";
-    public static final int VERSION = 1;
+    public static final int VERSION = 3;
     public DatabaseHelper(Context context) {
         super(context, SCHEMA, null, VERSION);
     }
@@ -32,7 +32,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Journey.COLUMN_ESTIMATEDTA + " INTEGER, "
                 + Journey.COLUMN_ACTUALTA + " INTEGER, "
                 + Journey.COLUMN_TEXTSENTTO + " TEXT "
-                + ");";
+                + Journey.COLUMN_MESSAGE + " TEXT "
+                +");";
         Log.d("Query", sql);
         sqLiteDatabase.execSQL(sql);
 
@@ -51,9 +52,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // you want to migrate to the new db
         // drop the current tables
         // call onCreate to get the latest db design
-        String sql = "DROP TABLE IF EXISTS" + Journey.TABLE_NAME + ";"
-                    + "DROP TABLE IF EXISTS" + Contact.TABLE_NAME + ";";
+        String sql = "DROP TABLE IF EXISTS " + Journey.TABLE_NAME + ";"
+                    + "DROP TABLE IF EXISTS " + Contact.TABLE_NAME + ";";
         sqLiteDatabase.execSQL(sql);
+        onCreate(sqLiteDatabase);
     }
 
     // Add Journey
@@ -77,17 +79,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Edit Journey
-    public boolean editJourney(long currentId, Journey newJourney) {
+    public boolean setEndTimeJourney(long currentId, long time) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Journey.COLUMN_SOURCE, newJourney.getSource());
-        contentValues.put(Journey.COLUMN_DESTINATION, newJourney.getDestination());
-        contentValues.put(Journey.COLUMN_PLATENUMBER, newJourney.getPlate_number());
-        contentValues.put(Journey.COLUMN_STARTTIME, newJourney.getStartTime());
-        contentValues.put(Journey.COLUMN_ESTIMATEDTA, newJourney.getEstimatedTA());
-        contentValues.put(Journey.COLUMN_ACTUALTA, newJourney.getActualTA());
-        contentValues.put(Journey.COLUMN_TEXTSENTTO, newJourney.getTextSentTo());
+        contentValues.put(Journey.COLUMN_ACTUALTA, time);
 
         int rows = db.update(Journey.TABLE_NAME,
                 contentValues,

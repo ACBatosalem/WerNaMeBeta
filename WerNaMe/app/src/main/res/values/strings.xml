@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WerNaMe</string>
     <string name = "contact_prompt">Choose a Contact</string>
-    <string name = "hours_prompt">ETA Hours</string>
-    <string name = "minutes_prompt">ETA Minutes</string>
+    <string name = "hours_prompt">Hours of Travel</string>
+    <string name = "minutes_prompt">Minutes of Travel</string>
 </resources>

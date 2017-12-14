@@ -19,14 +19,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Service.NOTIFICATION_SERVICE);
 
-        Intent secondActivity = new Intent(context, ExtendActivity.class);
+        Intent secondActivity = new Intent(context, ArrivedActivity.class);
         PendingIntent saPI = PendingIntent.getActivity(context,
                 CreateActivity.PENDINGINTENT_SA, secondActivity,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder
                 = (NotificationCompat.Builder) new NotificationCompat.Builder(context).
-                setSmallIcon(R.drawable.mini_logo_icon)
+                setSmallIcon(R.mipmap.logo)
                 .setTicker("Need more time?")
                 .setContentTitle("Have you arrived at your destination?")
                 .setContentText("Click here to extend time or end journey.")

@@ -18,6 +18,7 @@ public class Journey {
     public static final String COLUMN_ESTIMATEDTA = "estTA";
     public static final String COLUMN_ACTUALTA = "actTA";
     public static final String COLUMN_TEXTSENTTO = "textSentTo";
+    public static final String COLUMN_MESSAGE = "message";
 
     private long id;
     private String source;
@@ -27,10 +28,13 @@ public class Journey {
     private long estimatedTA;
     private long actualTA;
     private String textSentTo;
+    private String message;
+
+
 
     public Journey() {}
 
-    public Journey(String source, String destination, String plate_number, long startTime, long estimatedTA, String textSentTo) {
+    public Journey(String source, String destination, String plate_number, long startTime, long estimatedTA, String message, String textSentTo) {
         this.source = source;
         this.destination = destination;
         this.plate_number = plate_number;
@@ -38,6 +42,7 @@ public class Journey {
         this.estimatedTA = estimatedTA;
         this.actualTA = estimatedTA;
         this.textSentTo = textSentTo;
+        this.message = message;
     }
 
     public long getId() {
@@ -102,5 +107,13 @@ public class Journey {
 
     public void setTextSentTo(String textSentTo) {
         this.textSentTo = textSentTo;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

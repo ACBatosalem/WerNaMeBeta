@@ -21,6 +21,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,7 @@ public class CreateActivity extends AppCompatActivity
     DatabaseHelper databaseHelper;
     TextView createText, contactText, historyText;
     public AlarmManager alarmManager;
+    String contactName;
 
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int PENDINGINTENT_SA = 0;
@@ -89,6 +91,21 @@ public class CreateActivity extends AppCompatActivity
             mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerContacts.setAdapter(mAdapter);
         }
+
+        spinnerContacts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView parent, View view,
+                                       int pos, long log) {
+
+                Cursor c = (Cursor)parent.getItemAtPosition(pos);
+                String name = c.getString(c.getColumnIndexOrThrow(Contact.COLUMN_NAME));
+                setContactName(name);
+            }
+
+            public void onNothingSelected(AdapterView arg0) {
+
+            }
+        });
 
         // Spinner for ETA Hours
         spinnerHours = (Spinner) findViewById(R.id.sp_hours);
@@ -166,7 +183,7 @@ public class CreateActivity extends AppCompatActivity
                 System.out.println("End = " + elapsedTime);
 
                 if(src.equals("Source") || dest.equals("Destination") || plateNum.equals("") ||
-                        (minutes == 0 && hours == 0)) {
+                        (minutes == 0 && hours == 0) || message.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             "Please fill out all fields",
                             Toast.LENGTH_SHORT).show();
@@ -208,6 +225,11 @@ public class CreateActivity extends AppCompatActivity
         });
     }
 
+    private void setContactName(String name) {
+        Log.d("Name", name);
+        contactName = name;
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == PLACE_PICKER_SRC_REQUEST) {
             System.out.println("Hello World");
@@ -228,8 +250,10 @@ public class CreateActivity extends AppCompatActivity
         }
     }
 
-    private long addJourney(String source, String destination, String plateNumber, long startTime, long estimatedTA, String message) {
-        return databaseHelper.addJourney(new Journey(source, destination, plateNumber, startTime, estimatedTA,  message));
+    private long addJourney(String source, String destination, String plateNumber,
+                            long startTime, long estimatedTA, String message) {
+        return databaseHelper.addJourney(new Journey(source, destination, plateNumber,
+                startTime, estimatedTA,  message, contactName));
     }
 
     private void setAlarm(long elapsedTime) {
@@ -277,6 +301,7 @@ public class CreateActivity extends AppCompatActivity
         startActivity(i);
         finish();
     }
+
 
 
 }

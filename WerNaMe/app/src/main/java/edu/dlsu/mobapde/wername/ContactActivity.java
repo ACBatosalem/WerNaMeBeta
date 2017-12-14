@@ -24,7 +24,7 @@ public class ContactActivity extends AppCompatActivity {
     RecyclerView rvContact;
     Button addLayout;
     DatabaseHelper databaseHelper;
-    TextView createText, contactText, historyText;
+    TextView createText, contactText, historyText, noContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class ContactActivity extends AppCompatActivity {
         createText = (TextView) findViewById(R.id.create);
         contactText = (TextView) findViewById(R.id.contacts);
         historyText = (TextView) findViewById(R.id.history);
+        noContents = (TextView) findViewById(R.id.noContents);
 
       /*  String udata="Contacts";
         SpannableString content = new SpannableString(udata);
@@ -51,6 +52,16 @@ public class ContactActivity extends AppCompatActivity {
         rvContact.setAdapter(cs);
         rvContact.setLayoutManager(new LinearLayoutManager(
                 getBaseContext(),LinearLayoutManager.VERTICAL,false));
+
+        Cursor cursor = databaseHelper.getAllContacts();
+        if(cursor.getCount() <= 0) {
+            noContents.setVisibility(View.VISIBLE);
+            noContents.setText("No contacts yet.");
+            rvContact.setVisibility(View.GONE);
+        } else {
+            noContents.setVisibility(View.GONE);
+            rvContact.setVisibility(View.VISIBLE);
+        }
 
         addLayout.setOnClickListener(new View.OnClickListener() {
             @Override

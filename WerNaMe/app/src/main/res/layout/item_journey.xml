@@ -6,80 +6,72 @@
     android:background="@drawable/border_bottom"
     android:id="@+id/layout_journey">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="11">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        >
 
-        <RelativeLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_src"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="5"
-
-            >
-
-            <TextView
-                android:id="@+id/tv_src"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingBottom="10dp"
-                android:text="Source"
-                android:textColor="@color/colorGrey"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/tv_time_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_src"
-                android:layout_centerHorizontal="true"
-                android:text="9:00 AM"
-                android:textColor="@color/colorGrey"
-                android:textSize="17sp" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
+            android:layout_centerInParent="true"
+            android:paddingBottom="10dp"
+            android:text="Source"
             android:gravity="center"
-            android:src="@drawable/car" />
+            android:textColor="@color/colorGrey"
+            android:textSize="17sp" />
 
-        <RelativeLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_time_start"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="5"
+            android:layout_below="@id/tv_src"
+            android:layout_centerHorizontal="true"
+            android:text="9:00 AM"
+            android:textColor="@color/colorGrey"
+            android:textSize="17sp" />
+    </RelativeLayout>
 
-            >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/itinerary" />
 
-            <TextView
-                android:id="@+id/tv_dst"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingBottom="10dp"
-                android:text="Destination"
-                android:textColor="@color/colorGrey"
-                android:textSize="17sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="10dp"
 
-            <TextView
-                android:id="@+id/tv_time_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_dst"
-                android:layout_centerHorizontal="true"
-                android:text="9:00 PM"
-                android:textColor="@color/colorGrey"
-                android:textSize="17sp" />
-        </RelativeLayout>
-    </LinearLayout>
+        >
+
+        <TextView
+            android:id="@+id/tv_dst"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingBottom="10dp"
+            android:text="Destination"
+            android:textColor="@color/colorGrey"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_time_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_dst"
+            android:layout_centerHorizontal="true"
+            android:text="9:00 PM"
+            android:textColor="@color/colorGrey"
+            android:textSize="17sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,7 +88,7 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="55dp"
+                android:layout_width="45dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/license_plate_2" />
@@ -129,8 +121,8 @@
                 android:layout_gravity="center"
                 android:text="45minutes"
                 android:paddingTop="5dp"
-
                 android:textColor="@color/colorGrey"
+                android:id="@+id/tv_travelTime"
                 />
         </LinearLayout>
         <LinearLayout
@@ -152,8 +144,8 @@
                 android:layout_gravity="center"
                 android:text="mamamo"
                 android:paddingTop="5dp"
-
                 android:textColor="@color/colorGrey"
+                android:id="@+id/tv_message"
                 />
         </LinearLayout>
     </LinearLayout>

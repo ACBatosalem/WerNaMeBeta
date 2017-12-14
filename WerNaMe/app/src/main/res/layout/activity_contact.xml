@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +21,6 @@
         android:id="@+id/header"/>
 
     <LinearLayout
-        android:layout_below="@id/header"
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,17 +63,39 @@
             android:paddingBottom="10dp"/>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/noContents"
+        android:gravity="center"
+        android:textSize="18sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/rv_contacts"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
     <Button
         android:id="@+id/layout_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:text="Add Contact"
         android:textColor="@color/colorGrey"
         android:textSize="17sp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:paddingRight="25dp"
@@ -83,15 +104,5 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
-        android:paddingTop="20dp"
-        android:layout_below="@id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="25dp"
-        android:id="@+id/rv_contacts">
 
-    </android.support.v7.widget.RecyclerView>
-</RelativeLayout>
+</LinearLayout>

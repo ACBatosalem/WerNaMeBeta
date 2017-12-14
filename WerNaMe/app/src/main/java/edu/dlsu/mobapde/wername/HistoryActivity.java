@@ -1,6 +1,7 @@
 package edu.dlsu.mobapde.wername;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,7 @@ public class HistoryActivity extends AppCompatActivity {
     RecyclerView rvJourney;
     DatabaseHelper databaseHelper;
 
-    TextView createText, contactText, historyText;
+    TextView createText, contactText, historyText, noContents;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class HistoryActivity extends AppCompatActivity {
         createText = (TextView) findViewById(R.id.create);
         contactText = (TextView) findViewById(R.id.contacts);
         historyText = (TextView) findViewById(R.id.history);
+        noContents = (TextView) findViewById(R.id.noContents);
 
        /* String udata="History";
         SpannableString content = new SpannableString(udata);
@@ -43,6 +45,16 @@ public class HistoryActivity extends AppCompatActivity {
         journeys.add(new Journey("Makati", "MOA","XYZ-5678"));
         journeys.add(new Journey("SM", "Makati","LMN-1234"));
         journeys.add(new Journey("Imus", "SM","LMN-1234"));*/
+
+        Cursor cursor = databaseHelper.getAllJourneysCursor();
+        if(cursor.getCount() <= 0) {
+            noContents.setVisibility(View.VISIBLE);
+            noContents.setText("No journeys yet.");
+            rvJourney.setVisibility(View.GONE);
+        } else {
+            noContents.setVisibility(View.GONE);
+            rvJourney.setVisibility(View.VISIBLE);
+        }
 
 
         contactText.setOnClickListener(new View.OnClickListener() {
