@@ -3,18 +3,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#cbffffff"
-    android:layout_marginBottom="8dp"
+    android:background="@drawable/border_bottom"
     android:id="@+id/layout_journey">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="11">
         <TextView
             android:id="@+id/tv_src"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
@@ -23,15 +22,22 @@
             android:paddingRight="5dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:textSize="20sp"
-            android:background="@drawable/for_history"
+            android:textSize="17sp"
             android:text="Source"
+            android:textColor="@color/colorGrey"
+            android:gravity="center"
             />
-
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/car"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"/>
         <TextView
             android:id="@+id/tv_dst"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -40,9 +46,11 @@
             android:paddingRight="5dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:textSize="20sp"
-            android:background="@drawable/for_history"
-            android:text="Destination"/>
+            android:textSize="17sp"
+            android:text="Destination"
+            android:gravity="center"
+
+            android:textColor="@color/colorGrey"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,8 +58,7 @@
         android:layout_height="wrap_content"
         android:weightSum="3"
         android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:background="@drawable/border_bottom">
+        android:paddingBottom="20dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,9 +66,9 @@
             android:id="@+id/pnumber"
             android:layout_weight="1">
             <ImageView
-                android:layout_width="80dp"
+                android:layout_width="50dp"
                 android:layout_height="40dp"
-                android:src="@drawable/license"
+                android:src="@drawable/license_plate_2"
                 android:layout_gravity="center"
                 />
             <TextView
@@ -70,6 +77,8 @@
                 android:layout_gravity="center"
                 android:id="@+id/tv_platenum"
                 android:text="ABC-123"
+
+                android:textColor="@color/colorGrey"
                 />
         </LinearLayout>
         <LinearLayout
@@ -82,7 +91,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/clock"
+                android:src="@drawable/clock_2"
                 android:layout_gravity="center"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -90,6 +99,8 @@
                 android:layout_gravity="center"
                 android:text="45minutes"
                 android:paddingTop="5dp"
+
+                android:textColor="@color/colorGrey"
                 />
         </LinearLayout>
         <LinearLayout
@@ -102,14 +113,17 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/mail"
-                android:layout_gravity="center"/>
+                android:src="@drawable/mail_2"
+                android:layout_gravity="center"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="mamamo"
                 android:paddingTop="5dp"
+
+                android:textColor="@color/colorGrey"
                 />
         </LinearLayout>
     </LinearLayout>

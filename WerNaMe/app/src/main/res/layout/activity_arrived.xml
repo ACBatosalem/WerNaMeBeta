@@ -5,38 +5,191 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg"
+    android:background="#fff"
     tools:context="edu.dlsu.mobapde.wername.ArrivedActivity">
-
-    <Button
-        android:id="@+id/btn_extend"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:background="#6ebeca"
-        android:hint="Extend"
-        android:textColor="#000"
-        android:textSize="40sp"
-        android:layout_gravity="center"/>
+        android:text="WerNaMe?"
+        android:textColor="@color/colorGrey"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:background="@color/colorNewYellow"
+        android:id="@+id/header"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="11">
+        <TextView
+            android:id="@+id/tv_src"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="17sp"
+            android:text="Source"
+            android:textColor="@color/colorGrey"
+            android:gravity="center"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/car"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/tv_dst"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="17sp"
+            android:text="Destination"
+            android:gravity="center"
+
+            android:textColor="@color/colorGrey"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/pnumber"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:src="@drawable/license_plate_2"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/tv_platenum"
+                android:text="ABC-123"
+
+                android:textColor="@color/colorGrey"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/time"
+            android:layout_weight="1"
+            android:paddingTop="10dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/clock_2"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="45minutes"
+                android:paddingTop="5dp"
+
+                android:textColor="@color/colorGrey"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/sentto"
+            android:layout_weight="1"
+            android:paddingTop="10dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/mail_2"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="mamamo"
+                android:paddingTop="5dp"
+
+                android:textColor="@color/colorGrey"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_arrived"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="150dp"
-        android:background="#FFFA80"
-        android:hint="Arrived"
-        android:textColor="#000"
-        android:textSize="40sp"
-        android:layout_gravity="center"/>
+        android:background="@drawable/button"
+        android:text="Arrived"
+        android:textColor="@color/colorGrey"
+        android:textSize="17sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_extend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:text="Extend"
+        android:textColor="@color/colorGrey"
+        android:textSize="17sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:textAllCaps="false"
+        android:elevation="5dp"/>
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:text="Cancel"
+        android:textColor="@color/colorGrey"
+        android:textSize="17sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:textAllCaps="false"/>
 
 
 

@@ -12,6 +12,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class ContactActivity extends AppCompatActivity {
     private static final int RESULT_PICK_CONTACT = 0;
     RecyclerView rvContact;
-    LinearLayout addLayout;
+    Button addLayout;
     DatabaseHelper databaseHelper;
     TextView createText, contactText, historyText;
 
@@ -32,7 +33,7 @@ public class ContactActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(getBaseContext());
 
-        addLayout = (LinearLayout) findViewById(R.id.layout_add);
+        addLayout = (Button) findViewById(R.id.layout_add);
 
         rvContact = (RecyclerView) findViewById(R.id.rv_contacts);
 

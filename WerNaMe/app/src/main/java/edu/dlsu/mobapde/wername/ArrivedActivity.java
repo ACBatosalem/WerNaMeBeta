@@ -9,8 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class ArrivedActivity extends AppCompatActivity {
-    Button bExtend;
-    Button bArrived;
+    Button bExtend, bArrived, bCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,16 +17,18 @@ public class ArrivedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_arrived);
         SharedPreferences dsp =
                 PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean trip = dsp.getBoolean("trip", false);
+        long trip = dsp.getLong("trip", -1);
         bExtend = (Button) findViewById(R.id.btn_extend);
         bArrived = (Button) findViewById(R.id.btn_arrived);
+        bCancel = (Button) findViewById(R.id.btn_cancel);
 
         bExtend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor dspEditor = dsp.edit();
-                dspEditor.putBoolean("trip", true);
+                long trip = dsp.getLong("trip", -1);
+                dspEditor.putLong("trip", trip);
                 dspEditor.commit();
 
                 Intent i = new Intent(getBaseContext(), ExtendActivity.class);
@@ -42,10 +43,10 @@ public class ArrivedActivity extends AppCompatActivity {
                 SharedPreferences dsp =
                         PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor dspEditor = dsp.edit();
-                dspEditor.remove("name");
+                dspEditor.remove("trip");
                 dspEditor.commit();
 
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                Intent i = new Intent(getBaseContext(), CreateActivity.class);
                 startActivity(i);
                 finish();
 
@@ -53,8 +54,8 @@ public class ArrivedActivity extends AppCompatActivity {
             }
         });
 
-        if(!trip) {
-            Intent i = new Intent(getBaseContext(), MainActivity.class);
+        if(trip == -1) {
+            Intent i = new Intent(getBaseContext(), CreateActivity.class);
             startActivity(i);
             finish();
         }

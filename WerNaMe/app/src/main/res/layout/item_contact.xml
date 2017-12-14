@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="5dp">
 
 
     <LinearLayout
@@ -11,20 +11,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        android:background="@drawable/border_bottom">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Drew Houston"
             android:textSize="17sp"
-            android:textColor="#000"
+            android:textColor="#1e160b"
             android:id="@+id/tv_icename"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="09991234567"
             android:textSize="13sp"
-            android:textColor="#000"
+            android:textColor="#1e160b"
             android:id="@+id/tv_icenum"/>
     </LinearLayout>
 </LinearLayout>

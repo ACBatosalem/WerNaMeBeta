@@ -13,25 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WerNaMe?"
-        android:textColor="#fff"
+        android:textColor="#333333"
         android:textSize="20sp"
         android:gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
-        android:background="#253d63"/>
+        android:background="@color/colorNewYellow"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
-        android:background="#fff"
+
         >
         <TextView
             android:id="@+id/create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create"
-            android:textColor="#256d63"
+            android:textColor="@color/colorGrey"
             android:textSize="17sp"
             android:layout_weight="1"
             android:gravity="center"
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contacts"
-            android:textColor="#256d63"
+            android:textColor="@color/colorGrey"
             android:textSize="17sp"
             android:layout_weight="1"
             android:gravity="center"
@@ -53,13 +53,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="History"
-            android:textColor="#256d63"
-            android:background="@drawable/border_bottom"
+            android:textColor="@color/colorGrey"
             android:textSize="17sp"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="15dp"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"
+            android:background="@drawable/border_bottom"/>
     </LinearLayout>
 
 

@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WerNaMe?"
-        android:textColor="#fff"
+        android:textColor="@color/colorGrey"
         android:textSize="20sp"
         android:gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
-        android:background="#253d63"/>
+        android:background="@color/colorNewYellow"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,9 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create"
-            android:textColor="#253d63"
+            android:textColor="@color/colorGrey"
             android:textSize="17sp"
-            android:drawableBottom="#253d63"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="15dp"
@@ -43,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contacts"
-            android:textColor="#253d63"
+            android:textColor="@color/colorGrey"
             android:textSize="17sp"
             android:layout_weight="1"
             android:gravity="center"
@@ -54,48 +53,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="History"
-            android:textColor="#253d63"
+            android:textColor="@color/colorGrey"
             android:textSize="17sp"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="15dp"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"
+            />
     </LinearLayout>
 
     <Button
             android:id="@+id/btn_src"
+        android:textAllCaps="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-
-            android:textSize="15sp"
-            android:text="Source"/>
-        <Button
-            android:id="@+id/btn_dest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textSize="15sp"
-            android:text="Destination"/>
+            android:text="Source"/>
+        <Button
+            android:id="@+id/btn_dest"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="15sp"
+            android:text="Destination"
+/>
 
     <EditText
         android:id="@+id/et_plateNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Plate Number"
-        android:background="#cbffffff"
+
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -156,7 +158,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:hint="Text Message"
-        android:background="#cbffffff"
+
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -170,11 +172,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="#253D63"
+        android:background="@drawable/button"
         android:text="Create"
         android:padding="5dp"
-        android:textColor="#f0fefe"
-        android:textSize="17sp" />
+        android:textColor="@color/colorGrey"
+        android:textSize="17sp"
+        android:textAllCaps="false"/>
 
 
 </LinearLayout>

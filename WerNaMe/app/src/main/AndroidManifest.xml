@@ -20,23 +20,24 @@
             android:value="AIzaSyAZm9z0VywO-bemaTsL67uMJa6YkZkz3ps" />
 
         <activity android:name=".MainActivity"/>
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".ContactActivity" />
-        <activity android:name=".CreateActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".HistoryActivity"/>
+        <activity android:name=".ContactActivity"/>
+        <activity android:name=".CreateActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ExtendActivity" />
+        <activity android:name=".ExtendActivity"/>
 
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ArrivedActivity"/>
+        <activity android:name=".ArrivedActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

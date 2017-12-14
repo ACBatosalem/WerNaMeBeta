@@ -158,24 +158,31 @@ public class CreateActivity extends AppCompatActivity
                 String src = buttonSrc.getText().toString();
                 String dest = buttonDesti.getText().toString();
                 String plateNum = etPlateNum.getText().toString();
-
-                long id = addJourney(src, dest, plateNum);
-               // sendSMSMessage();
                 int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
                 int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
-                setAlarm(minutes, hours);
 
-                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor dspEditor = dsp.edit();
-                dspEditor.putLong("trip", id);
-                dspEditor.commit();
+                if(src.equals("") || dest.equals("") || plateNum.equals("") ||
+                        (minutes == 0 && hours == 0)) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please fill out all fields",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    long id = addJourney(src, dest, plateNum);
+                    // sendSMSMessage();
+                    //setAlarm(minutes, hours);
 
-                TextDialog td = new TextDialog();
-                td.show(getSupportFragmentManager(), "");
+                    SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    SharedPreferences.Editor dspEditor = dsp.edit();
+                    dspEditor.putLong("trip", id);
+                    dspEditor.commit();
+
+                    TextDialog td = new TextDialog();
+                    td.show(getSupportFragmentManager(), "");
 
                /* Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
                 startActivity(i);
                 finish();*/
+                }
 
             }
         });
@@ -256,7 +263,16 @@ public class CreateActivity extends AppCompatActivity
 
     @Override
     public void onDialogClick(boolean sendText) {
+        if(sendText) {
+            //TODO get number and send text
 
+        }
+        int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
+        int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
+        setAlarm(minutes,hours);
+        Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
+        startActivity(i);
+        finish();
     }
 
 
