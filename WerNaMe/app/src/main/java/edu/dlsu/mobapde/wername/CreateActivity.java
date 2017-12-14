@@ -35,6 +35,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER;
 
@@ -155,8 +156,14 @@ public class CreateActivity extends AppCompatActivity
                 String src = buttonSrc.getText().toString();
                 String dest = buttonDesti.getText().toString();
                 String plateNum = etPlateNum.getText().toString();
+                String message = etMessage.getText().toString();
                 int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
                 int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
+                long startTime = System.currentTimeMillis();
+                long elapsedTime = minutes*1000*60 + hours*60*60*1000 + startTime;
+
+                System.out.println("STart = " + startTime);
+                System.out.println("End = " + elapsedTime);
 
                 if(src.equals("Source") || dest.equals("Destination") || plateNum.equals("") ||
                         (minutes == 0 && hours == 0)) {
@@ -164,9 +171,9 @@ public class CreateActivity extends AppCompatActivity
                             "Please fill out all fields",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    long id = addJourney(src, dest, plateNum);
+                    long id = addJourney(src, dest, plateNum, startTime, elapsedTime, message);
                     // sendSMSMessage();
-                    //setAlarm(minutes, hours);
+                    setAlarm(elapsedTime);
 
                     SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                     SharedPreferences.Editor dspEditor = dsp.edit();
@@ -178,9 +185,7 @@ public class CreateActivity extends AppCompatActivity
 
                     TextDialog td = new TextDialog();
                     td.show(getSupportFragmentManager(), "");
-
                 }
-
             }
         });
 
@@ -223,11 +228,11 @@ public class CreateActivity extends AppCompatActivity
         }
     }
 
-    private long addJourney(String source, String destination, String plateNumber) {
-        return databaseHelper.addJourney(new Journey(source, destination, plateNumber));
+    private long addJourney(String source, String destination, String plateNumber, long startTime, long estimatedTA, String message) {
+        return databaseHelper.addJourney(new Journey(source, destination, plateNumber, startTime, estimatedTA,  message));
     }
 
-    private void setAlarm(int minutes, int hours) {
+    private void setAlarm(long elapsedTime) {
         alarmManager
                 = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
         Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
@@ -235,10 +240,9 @@ public class CreateActivity extends AppCompatActivity
                 = PendingIntent.getBroadcast(getBaseContext(),
                 PENDINGINTENT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                minutes*1000*60 + hours*60*60*1000  + SystemClock.elapsedRealtime(),
-                bcPI);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                        elapsedTime,
+                        bcPI);
     }
 
     protected void sendSMSMessage() {
@@ -266,7 +270,9 @@ public class CreateActivity extends AppCompatActivity
         }
         int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
         int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
-        setAlarm(minutes,hours);
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = minutes*1000*60 + hours*60*60*1000 + startTime;
+        setAlarm(elapsedTime);
         Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
         startActivity(i);
         finish();

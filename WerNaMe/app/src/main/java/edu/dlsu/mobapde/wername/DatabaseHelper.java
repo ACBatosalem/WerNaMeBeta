@@ -28,8 +28,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Journey.COLUMN_SOURCE + " TEXT, "
                 + Journey.COLUMN_DESTINATION + " TEXT, "
                 + Journey.COLUMN_PLATENUMBER + " TEXT, "
-                + Journey.COLUMN_ESTIMATEDTA + " TEXT, "
-                + Journey.COLUMN_ACTUALTA + " TEXT, "
+                + Journey.COLUMN_STARTTIME + " INTEGER, "
+                + Journey.COLUMN_ESTIMATEDTA + " INTEGER, "
+                + Journey.COLUMN_ACTUALTA + " INTEGER, "
                 + Journey.COLUMN_TEXTSENTTO + " TEXT "
                 + ");";
         Log.d("Query", sql);
@@ -63,9 +64,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Journey.COLUMN_SOURCE, journey.getSource());
         contentValues.put(Journey.COLUMN_DESTINATION, journey.getDestination());
         contentValues.put(Journey.COLUMN_PLATENUMBER, journey.getPlate_number());
-        //contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
-        //contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());
-        //contentValues.put(Journey.COLUMN_TEXTSENT, journey.getTextSent());
+        contentValues.put(Journey.COLUMN_STARTTIME, journey.getStartTime());
+        contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
+        contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());
+        contentValues.put(Journey.COLUMN_TEXTSENTTO, journey.getTextSentTo());
 
         long id = db.insert(Journey.TABLE_NAME,
                 null,
@@ -82,9 +84,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Journey.COLUMN_SOURCE, newJourney.getSource());
         contentValues.put(Journey.COLUMN_DESTINATION, newJourney.getDestination());
         contentValues.put(Journey.COLUMN_PLATENUMBER, newJourney.getPlate_number());
+        contentValues.put(Journey.COLUMN_STARTTIME, newJourney.getStartTime());
         contentValues.put(Journey.COLUMN_ESTIMATEDTA, newJourney.getEstimatedTA());
         contentValues.put(Journey.COLUMN_ACTUALTA, newJourney.getActualTA());
-        contentValues.put(Journey.COLUMN_TEXTSENTTO, newJourney.getTextSent());
+        contentValues.put(Journey.COLUMN_TEXTSENTTO, newJourney.getTextSentTo());
 
         int rows = db.update(Journey.TABLE_NAME,
                 contentValues,
@@ -121,16 +124,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String source = c.getString(c.getColumnIndex(Journey.COLUMN_SOURCE));
             String destination = c.getString(c.getColumnIndex(Journey.COLUMN_DESTINATION));
             String plateNum = c.getString(c.getColumnIndex(Journey.COLUMN_PLATENUMBER));
-            String eta = c.getString(c.getColumnIndex(Journey.COLUMN_ESTIMATEDTA));
-            String ata = c.getString(c.getColumnIndex(Journey.COLUMN_ACTUALTA));
+            long startTime = c.getLong(c.getColumnIndex(Journey.COLUMN_STARTTIME));
+            long eta = c.getLong(c.getColumnIndex(Journey.COLUMN_ESTIMATEDTA));
+            long ata = c.getLong(c.getColumnIndex(Journey.COLUMN_ACTUALTA));
             String textSent = c.getString(c.getColumnIndex(Journey.COLUMN_TEXTSENTTO));
 
             j.setSource(source);
             j.setDestination(destination);
             j.setPlate_number(plateNum);
+            j.setStartTime(startTime);
             j.setEstimatedTA(eta);
             j.setActualTA(ata);
-            j.setTextSent(textSent);
+            j.setTextSentTo(textSent);
             j.setId(id);
         }
 

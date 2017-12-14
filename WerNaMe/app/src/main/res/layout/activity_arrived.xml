@@ -29,9 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="5"
-
-            >
+            android:layout_weight="5">
 
             <TextView
                 android:id="@+id/tv_src"
@@ -141,8 +139,8 @@
                 android:layout_gravity="center"
                 android:text="45minutes"
                 android:paddingTop="5dp"
-
                 android:textColor="@color/colorGrey"
+                android:id="@+id/tv_travelTime"
                 />
         </LinearLayout>
         <LinearLayout
@@ -164,8 +162,8 @@
                 android:layout_gravity="center"
                 android:text="mamamo"
                 android:paddingTop="5dp"
-
                 android:textColor="@color/colorGrey"
+                android:id="@+id/tv_message"
                 />
         </LinearLayout>
     </LinearLayout>
