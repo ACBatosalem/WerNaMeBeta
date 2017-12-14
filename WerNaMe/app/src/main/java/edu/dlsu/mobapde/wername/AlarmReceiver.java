@@ -26,10 +26,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder
                 = (NotificationCompat.Builder) new NotificationCompat.Builder(context).
-                setSmallIcon(R.mipmap.ic_launcher)
-                .setTicker("Time's up")
-                .setContentTitle("Extend Time")
-                .setContentText("Click")
+                setSmallIcon(R.drawable.mini_logo_icon)
+                .setTicker("Need more time?")
+                .setContentTitle("Have you arrived at your destination?")
+                .setContentText("Click here to extend time or end journey.")
                 .setContentIntent(saPI);
         notificationManager.notify(CreateActivity.NOTIFICATION_ID_WK, builder.build());
     }

@@ -46,6 +46,7 @@ public class CreateActivity extends AppCompatActivity
     String phoneNo, message;
     DatabaseHelper databaseHelper;
     TextView createText, contactText, historyText;
+    public AlarmManager alarmManager;
 
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int PENDINGINTENT_SA = 0;
@@ -70,10 +71,6 @@ public class CreateActivity extends AppCompatActivity
         contactText = (TextView) findViewById(R.id.contacts);
         historyText = (TextView) findViewById(R.id.history);
 
-      /*  String udata="Create";
-        SpannableString content = new SpannableString(udata);
-        content.setSpan(new UnderlineSpan(), 0, udata.length(), 0);//where first 0 shows the starting and udata.length() shows the ending span.if you want to span only part of it than you can change these values like 5,8 then it will underline part of it.
-        createText.setText(content);*/
 
         // Spinner for Contacts
         spinnerContacts = (Spinner) findViewById(R.id.sp_contact);
@@ -161,7 +158,7 @@ public class CreateActivity extends AppCompatActivity
                 int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
                 int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
 
-                if(src.equals("") || dest.equals("") || plateNum.equals("") ||
+                if(src.equals("Source") || dest.equals("Destination") || plateNum.equals("") ||
                         (minutes == 0 && hours == 0)) {
                     Toast.makeText(getApplicationContext(),
                             "Please fill out all fields",
@@ -176,12 +173,12 @@ public class CreateActivity extends AppCompatActivity
                     dspEditor.putLong("trip", id);
                     dspEditor.commit();
 
+                    long trip = dsp.getLong("trip", -1);
+                    Log.d("id journey", "onClick: "+trip);
+
                     TextDialog td = new TextDialog();
                     td.show(getSupportFragmentManager(), "");
 
-               /* Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
-                startActivity(i);
-                finish();*/
                 }
 
             }
@@ -231,7 +228,7 @@ public class CreateActivity extends AppCompatActivity
     }
 
     private void setAlarm(int minutes, int hours) {
-        AlarmManager alarmManager
+        alarmManager
                 = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
         Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
         PendingIntent bcPI
