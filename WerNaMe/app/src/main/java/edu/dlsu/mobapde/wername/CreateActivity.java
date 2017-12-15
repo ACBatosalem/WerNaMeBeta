@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -52,8 +53,11 @@ public class CreateActivity extends AppCompatActivity
     String contactName;
 
     public static final int NOTIFICATION_ID_WK = 0;
+    public static final int NOTIFICATION_ID_TEXT = 1;
     public static final int PENDINGINTENT_SA = 0;
     public static final int PENDINGINTENT_BR = 1;
+    public static final int PENDINGINTENT_TEXT = 2;
+    public static final int PENDINGINTENT_TEXT_BR = 4;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
     private static final int PLACE_PICKER_SRC_REQUEST = 1;
     private static final int PLACE_PICKER_DEST_REQUEST = 2;
@@ -179,8 +183,7 @@ public class CreateActivity extends AppCompatActivity
                 long startTime = System.currentTimeMillis();
                 long elapsedTime = minutes*1000*60 + hours*60*60*1000 + startTime;
 
-                System.out.println("STart = " + startTime);
-                System.out.println("End = " + elapsedTime);
+                Log.d("AYAW NA", message);
 
                 if(src.equals("Source") || dest.equals("Destination") || plateNum.equals("") ||
                         (minutes == 0 && hours == 0) || message.equals("")) {
@@ -252,6 +255,7 @@ public class CreateActivity extends AppCompatActivity
 
     private long addJourney(String source, String destination, String plateNumber,
                             long startTime, long estimatedTA, String message) {
+        Log.d("ayaw na", message);
         return databaseHelper.addJourney(new Journey(source, destination, plateNumber,
                 startTime, estimatedTA,  message, contactName));
     }
@@ -269,28 +273,13 @@ public class CreateActivity extends AppCompatActivity
                         bcPI);
     }
 
-    protected void sendSMSMessage() {
-        phoneNo = "09298642815";
-        message = etMessage.getText().toString();
-        Log.d("mmhmm", "sendSMSMessage: " + message);
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, message, null, null);
-            Toast.makeText(getApplicationContext(), "SMS Sent!",
-                    Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    "SMS failed, please try again later!",
-                    Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public void onDialogClick(boolean sendText) {
         if(sendText) {
             //TODO get number and send text
-
+            sendSMSMessage(getBaseContext());
         }
         int minutes = Integer.parseInt(spinnerMinutes.getSelectedItem().toString());
         int hours = Integer.parseInt(spinnerHours.getSelectedItem().toString());
@@ -302,6 +291,26 @@ public class CreateActivity extends AppCompatActivity
         finish();
     }
 
+    protected void sendSMSMessage(Context context) {
+
+
+        SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        long trip = dsp.getLong("trip", -1);
+        Journey j = databaseHelper.getJourney(trip);
+        Contact c = databaseHelper.getContact(j.getTextSentTo());
+        Log.d("mmhmm", "sendSMSMessage: " + j.getMessage() + " " + c.getNumber());
+        try {
+             SmsManager smsManager = SmsManager.getDefault();
+             smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
+            Toast.makeText(getApplicationContext(), "SMS Sent!",
+                    Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),
+                    "SMS failed, please try again later!",
+                    Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
 
 
 }
