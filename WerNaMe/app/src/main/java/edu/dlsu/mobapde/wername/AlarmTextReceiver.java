@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.wername;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -12,6 +13,8 @@ import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_NOT_BR;
 
 /**
  * Created by Angel on 15/12/2017.
@@ -50,16 +53,33 @@ public class AlarmTextReceiver extends BroadcastReceiver {
         Journey j = databaseHelper.getJourney(trip);
         Contact c = databaseHelper.getContact(j.getTextSentTo());
         Log.d("mmhmm", "sendSMSMessage: " + j.getMessage() + " " + c.getNumber());
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
-            Toast.makeText(context.getApplicationContext(), "SMS Sent!",
-                    Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(context.getApplicationContext(),
-                    "SMS failed, please try again later!",
-                    Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        boolean sent = false;
+        for(int i=0; i<3 && !sent; i++) {
+            try {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
+                sent = true;
+                Toast.makeText(context.getApplicationContext(), "SMS Sent!",
+                        Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(context.getApplicationContext(),
+                        "SMS failed, please try again later!",
+                        Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        if(!sent) {
+            AlarmManager alarmManager
+                    = (AlarmManager)context.getSystemService(Service.ALARM_SERVICE);
+            Intent broadcastIntent = new Intent(context, AlarmNotSentReceiver.class);
+            PendingIntent bcPI
+                    = PendingIntent.getBroadcast(context,
+                    PENDINGINTENT_NOT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP,
+                    System.currentTimeMillis(),
+                    bcPI);
         }
     }
 }

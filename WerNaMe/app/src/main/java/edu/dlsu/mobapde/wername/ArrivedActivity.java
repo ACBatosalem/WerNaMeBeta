@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_BR;
+import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_NOT_BR;
 import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_TEXT_BR;
 
 public class ArrivedActivity extends AppCompatActivity 
@@ -219,16 +220,33 @@ public class ArrivedActivity extends AppCompatActivity
         Journey j = databaseHelper.getJourney(trip);
         Contact c = databaseHelper.getContact(j.getTextSentTo());
         Log.d("mmhmm", "sendSMSMessage: " + j.getMessage() + " " + c.getNumber());
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
-            Toast.makeText(getApplicationContext(), "SMS Sent!",
-                    Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    "SMS failed, please try again later!",
-                    Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        boolean sent = false;
+        for(int i=0; i<3 && !sent; i++) {
+            try {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
+                sent = true;
+                Toast.makeText(getApplicationContext(), "SMS Sent!",
+                        Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),
+                        "SMS failed, please try again later!",
+                        Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        if(!sent) {
+            AlarmManager alarmManager
+                    = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
+            Intent broadcastIntent = new Intent(getBaseContext(), AlarmNotSentReceiver.class);
+            PendingIntent bcPI
+                    = PendingIntent.getBroadcast(getBaseContext(),
+                    PENDINGINTENT_NOT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP,
+                    System.currentTimeMillis(),
+                    bcPI);
         }
     }
 }

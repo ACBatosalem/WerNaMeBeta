@@ -1,18 +1,18 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-//#253d63
+    //#253d63
     <item>
         <shape android:shape="rectangle" >
-            <solid android:color="#fff" />
+            <solid android:color="#f8f8f8" />
         </shape>
     </item>
 
-    <item android:top="-4dp" android:right="-4dp" android:left="-4dp">
+    <item android:top="-2dp" android:right="-2dp" android:left="-2dp">
         <shape>
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:width="3dp"
-                android:color="#281e160b" />
+                android:width="1dp"
+                android:color="@color/colorGrey" />
         </shape>
     </item>
 </layer-list>

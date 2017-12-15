@@ -36,8 +36,10 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER;
 
@@ -54,9 +56,12 @@ public class CreateActivity extends AppCompatActivity
 
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int NOTIFICATION_ID_TEXT = 1;
+    public static final int NOTIFICATION_ID_NOT = 2;
     public static final int PENDINGINTENT_SA = 0;
     public static final int PENDINGINTENT_BR = 1;
+    public static final int PENDINGINTENT_TEXT_NOT = 3;
     public static final int PENDINGINTENT_TEXT = 2;
+    public static final int PENDINGINTENT_NOT_BR = 7;
     public static final int PENDINGINTENT_TEXT_BR = 4;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
     private static final int PLACE_PICKER_SRC_REQUEST = 1;
@@ -191,6 +196,8 @@ public class CreateActivity extends AppCompatActivity
                             "Please fill out all fields",
                             Toast.LENGTH_SHORT).show();
                 } else {
+                    DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
+                    message += src + "->" + dest + ".ETA: " + df.format(new Date(elapsedTime));
                     long id = addJourney(src, dest, plateNum, startTime, elapsedTime, message);
                     // sendSMSMessage();
                     setAlarm(elapsedTime);
@@ -299,16 +306,33 @@ public class CreateActivity extends AppCompatActivity
         Journey j = databaseHelper.getJourney(trip);
         Contact c = databaseHelper.getContact(j.getTextSentTo());
         Log.d("mmhmm", "sendSMSMessage: " + j.getMessage() + " " + c.getNumber());
-        try {
-             SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
-            Toast.makeText(getApplicationContext(), "SMS Sent!",
-                    Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    "SMS failed, please try again later!",
-                    Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        boolean sent = false;
+        for(int i=0; i<3 && !sent; i++) {
+            try {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
+                sent = true;
+                Toast.makeText(getApplicationContext(), "SMS Sent!",
+                        Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),
+                        "SMS failed, please try again later!",
+                        Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        if(!sent) {
+            AlarmManager alarmManager
+                    = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
+            Intent broadcastIntent = new Intent(getBaseContext(), AlarmNotSentReceiver.class);
+            PendingIntent bcPI
+                    = PendingIntent.getBroadcast(getBaseContext(),
+                    PENDINGINTENT_NOT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP,
+                    System.currentTimeMillis(),
+                    bcPI);
         }
     }
 

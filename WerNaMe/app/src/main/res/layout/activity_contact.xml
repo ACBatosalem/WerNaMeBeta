@@ -51,7 +51,7 @@
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="10dp"
-            android:background="@drawable/border_bottom"/>
+            android:background="@drawable/border_bottom_layout"/>
         <TextView
             android:id="@+id/history"
             android:layout_width="0dp"

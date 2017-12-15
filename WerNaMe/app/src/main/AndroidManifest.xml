@@ -29,6 +29,16 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver
+            android:name=".AlarmTextReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".AlarmNotSentReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity android:name=".ArrivedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
