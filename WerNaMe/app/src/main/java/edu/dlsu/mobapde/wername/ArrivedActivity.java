@@ -79,23 +79,14 @@ public class ArrivedActivity extends AppCompatActivity
         bExtend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor dspEditor = dsp.edit();
-                long trip = dsp.getLong("trip", -1);
-                dspEditor.putLong("trip", trip);
-                dspEditor.commit();
-
-                Intent i = new Intent(getBaseContext(), ExtendActivity.class);
-                startActivity(i);
-                finish();
+                ExtendDialog td = new ExtendDialog();
+                td.show(getSupportFragmentManager(), "");
             }
         });
 
         bArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 ArrivedDialog td = new ArrivedDialog();
                 td.show(getSupportFragmentManager(), "");
 
@@ -115,8 +106,6 @@ public class ArrivedActivity extends AppCompatActivity
             startActivity(i);
             finish();
         }
-
-
     }
 
     @Override
@@ -129,7 +118,11 @@ public class ArrivedActivity extends AppCompatActivity
                 PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor dspEditor = dsp.edit();
         long trip = dsp.getLong("trip", -1);
-        databaseHelper.setEndTimeJourney((int) trip, System.currentTimeMillis());
+
+        Journey currJourney = databaseHelper.getJourney(trip);
+        currJourney.setActualTA(System.currentTimeMillis());
+        databaseHelper.editJourney(trip, currJourney);
+
         dspEditor.remove("trip");
         dspEditor.commit();
 

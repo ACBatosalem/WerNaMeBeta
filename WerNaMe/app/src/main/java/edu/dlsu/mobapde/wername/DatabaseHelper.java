@@ -79,11 +79,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Edit Journey
-    public boolean setEndTimeJourney(long currentId, long time) {
+    public boolean editJourney(long currentId, Journey journey) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Journey.COLUMN_ACTUALTA, time);
+        contentValues.put(Journey.COLUMN_SOURCE, journey.getSource());
+        contentValues.put(Journey.COLUMN_DESTINATION, journey.getSource());
+        contentValues.put(Journey.COLUMN_PLATENUMBER, journey.getDestination());
+        contentValues.put(Journey.COLUMN_STARTTIME, journey.getStartTime());
+        contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
+        contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());
+        contentValues.put(Journey.COLUMN_TEXTSENTTO, journey.getTextSentTo());
+        contentValues.put(Journey.COLUMN_MESSAGE, journey.getMessage());
 
         int rows = db.update(Journey.TABLE_NAME,
                 contentValues,

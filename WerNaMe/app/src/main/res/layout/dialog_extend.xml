@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/ex_hours"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:hint="@string/hours_prompt"
+        android:background="@android:drawable/btn_dropdown"
+        android:padding="5dp"
+        android:spinnerMode="dialog"
+        android:layout_marginRight="10dp"
+        android:textSize="15sp"
+        android:prompt="@string/hours_prompt"/>
+
+    <Spinner
+        android:id="@+id/ex_minutes"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:hint="ETA minutes"
+        android:background="@android:drawable/btn_dropdown"
+        android:padding="5dp"
+        android:spinnerMode="dialog"
+        android:textSize="15sp"
+        android:prompt="@string/minutes_prompt"/>
+
+</LinearLayout>
