@@ -45,6 +45,17 @@ public class Journey {
         this.message = message;
     }
 
+    public Journey(String source, String destination, String plate_number, long startTime, long estimatedTA, long actualTA, String textSentTo, String message) {
+        this.source = source;
+        this.destination = destination;
+        this.plate_number = plate_number;
+        this.startTime = startTime;
+        this.estimatedTA = estimatedTA;
+        this.actualTA = actualTA;
+        this.textSentTo = textSentTo;
+        this.message = message;
+    }
+
     public long getId() {
         return id;
     }

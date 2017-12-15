@@ -1,7 +1,9 @@
 package edu.dlsu.mobapde.wername;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +31,15 @@ public class JourneyAdapter
 
     @Override
     public void onBindViewHolder(JourneyViewHolder holder, Cursor cursor) {
+        long id = cursor.getLong(cursor.getColumnIndex(Journey.COLUMN_ID));
         String source = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_SOURCE));
         String destination = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_DESTINATION));
         String plateNumber = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_PLATENUMBER));
-        String message = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_TEXTSENTTO));
+        String textSentTo = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_TEXTSENTTO));
         long actualTA = cursor.getLong(cursor.getColumnIndex(Journey.COLUMN_ACTUALTA));
+        long estimatedTA = cursor.getLong(cursor.getColumnIndex(Journey.COLUMN_ESTIMATEDTA));
         long startTime = cursor.getLong(cursor.getColumnIndex(Journey.COLUMN_STARTTIME));
+        String message = cursor.getString(cursor.getColumnIndex(Journey.COLUMN_MESSAGE));
 
         long remTime = actualTA - startTime;
 
@@ -44,13 +49,26 @@ public class JourneyAdapter
         String newActualTA = df.format(new Date(actualTA));
         String newStartTime = df.format(new Date(startTime));
 
+        Journey currJourney = new Journey(source, destination, plateNumber, startTime, estimatedTA, actualTA, textSentTo, message);
+        currJourney.setId(id);
+
+        holder.ivEdit.setTag(currJourney);
+        holder.tvId.setText(String.valueOf(id));
         holder.tvSrc.setText(source);
         holder.tvDest.setText(destination);
         holder.tvPlateNum.setText(plateNumber);
-        holder.tvMessage.setText(message);
+        holder.tvMessage.setText(textSentTo);
         holder.tvStartTime.setText(newStartTime);
         holder.tvEndTime.setText(newActualTA);
         holder.tvTravelTime.setText(newTravelTime);
+
+        holder.ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Journey j = (Journey) view.getTag();
+                onItemClickListener.onItemClick(j);
+            }
+        });
     }
 
     @Override
@@ -69,12 +87,14 @@ public class JourneyAdapter
     public class JourneyViewHolder
             extends RecyclerView.ViewHolder{
 
-        TextView tvStartTime, tvEndTime, tvPlateNum, tvTravelTime, tvMessage, tvSrc, tvDest;
+        TextView tvStartTime, tvEndTime, tvPlateNum, tvTravelTime, tvMessage, tvSrc, tvDest, tvId;
+        ImageView ivEdit;
 
         public JourneyViewHolder(View itemView) {
             super(itemView);
             // TODO initialize tvRestaurant
             //what is itemView == item_restaurant
+            tvId = itemView.findViewById(R.id.tv_id);
             tvStartTime = itemView.findViewById(R.id.tv_time_start);
             tvEndTime = itemView.findViewById(R.id.tv_time_end);
             tvPlateNum = itemView.findViewById(R.id.tv_platenum);
@@ -82,6 +102,17 @@ public class JourneyAdapter
             tvMessage = itemView.findViewById(R.id.tv_message);
             tvSrc = itemView.findViewById(R.id.tv_src);
             tvDest = itemView.findViewById(R.id.tv_dst);
+            ivEdit = itemView.findViewById(R.id.iv_edit);
         }
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(Journey j);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener (OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

@@ -6,13 +6,20 @@
     android:background="@drawable/border_bottom"
     android:id="@+id/layout_journey">
 
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="invisible"/>
+
     <ImageView
         android:layout_width="25sp"
         android:layout_height="25sp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:layout_gravity="right"
-        android:src="@drawable/edit_3"/>
+        android:src="@drawable/edit_3"
+        android:id="@+id/iv_edit"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,7 +1,9 @@
 package edu.dlsu.mobapde.wername;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
     RecyclerView rvJourney;
+
     DatabaseHelper databaseHelper;
 
     TextView createText, contactText, historyText, noContents;
@@ -76,6 +79,19 @@ public class HistoryActivity extends AppCompatActivity {
         });
 
         JourneyAdapter js = new JourneyAdapter(getBaseContext(), databaseHelper.getAllJourneysCursor());
+        js.setOnItemClickListener(new JourneyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Journey j) {
+                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor dspEditor = dsp.edit();
+                dspEditor.putLong("editJourney", j.getId());
+                dspEditor.commit();
+
+                EditDialog td = new EditDialog();
+                td.show(getSupportFragmentManager(), "");
+            }
+        });
+
         rvJourney.setAdapter(js);
         rvJourney.setLayoutManager(new LinearLayoutManager(
                 getBaseContext(),LinearLayoutManager.VERTICAL,false));
