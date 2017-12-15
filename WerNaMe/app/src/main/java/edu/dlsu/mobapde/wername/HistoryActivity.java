@@ -104,7 +104,9 @@ public class HistoryActivity extends AppCompatActivity
         super.onResume();
         js.changeCursor(databaseHelper.getAllJourneysCursor());
         js.notifyDataSetChanged();
-
+        rvJourney.setAdapter(js);
+        rvJourney.setLayoutManager(new LinearLayoutManager(
+                getBaseContext(),LinearLayoutManager.VERTICAL,false));
     }
 
     @Override

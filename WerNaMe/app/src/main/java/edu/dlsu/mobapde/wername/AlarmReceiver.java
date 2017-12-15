@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.wername;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,6 +8,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
+
+import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_BR;
+import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_TEXT_BR;
 
 /**
  * Created by Angel on 02/11/2017.
@@ -23,6 +27,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent saPI = PendingIntent.getActivity(context,
                 CreateActivity.PENDINGINTENT_SA, secondActivity,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager
+                = (AlarmManager) context.getSystemService(Service.ALARM_SERVICE);
+        Intent broadcastIntent = new Intent(context, AlarmTextReceiver.class);
+        PendingIntent bcPI
+                = PendingIntent.getBroadcast(context,
+                PENDINGINTENT_TEXT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + 1*1000*60,
+                bcPI);
 
         NotificationCompat.Builder builder
                 = (NotificationCompat.Builder) new NotificationCompat.Builder(context).

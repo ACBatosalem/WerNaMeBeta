@@ -3,21 +3,25 @@ package edu.dlsu.mobapde.wername;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_BR;
+import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_TEXT_BR;
 
 public class ArrivedActivity extends AppCompatActivity 
         implements TextDialog.TextDialogListener, CancelDialog.CancelDialogListener,
@@ -113,7 +117,7 @@ public class ArrivedActivity extends AppCompatActivity
     public void onDialogClick(boolean sendText) {
         if(sendText) {
             //TODO get number and send text
-
+            sendSMSMessage(getBaseContext());
         }
         SharedPreferences dsp =
                 PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -153,14 +157,25 @@ public class ArrivedActivity extends AppCompatActivity
 
     public void cancelAlarm() {
         AlarmManager alarmManager
-                = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
-        Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
-        PendingIntent bcPI
-                = PendingIntent.getBroadcast(getBaseContext(),
-                PENDINGINTENT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                = (AlarmManager) getSystemService(Service.ALARM_SERVICE);
+        if(remTime > 0) {
 
-        alarmManager.cancel(bcPI);
-        bcPI.cancel();
+            Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
+            PendingIntent bcPI
+                    = PendingIntent.getBroadcast(getBaseContext(),
+                    PENDINGINTENT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.cancel(bcPI);
+            bcPI.cancel();
+        } else {
+            Intent broadcastIntent = new Intent(getBaseContext(), AlarmTextReceiver.class);
+            PendingIntent bcPI
+                    = PendingIntent.getBroadcast(getBaseContext(),
+                    PENDINGINTENT_TEXT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.cancel(bcPI);
+            bcPI.cancel();
+        }
 
     }
 
@@ -195,5 +210,25 @@ public class ArrivedActivity extends AppCompatActivity
         alarmManager.set(AlarmManager.RTC_WAKEUP,
                 elapsedTime,
                 bcPI);
+    }
+    protected void sendSMSMessage(Context context) {
+
+
+        SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        long trip = dsp.getLong("trip", -1);
+        Journey j = databaseHelper.getJourney(trip);
+        Contact c = databaseHelper.getContact(j.getTextSentTo());
+        Log.d("mmhmm", "sendSMSMessage: " + j.getMessage() + " " + c.getNumber());
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(c.getNumber(), null, j.getMessage(), null, null);
+            Toast.makeText(getApplicationContext(), "SMS Sent!",
+                    Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),
+                    "SMS failed, please try again later!",
+                    Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

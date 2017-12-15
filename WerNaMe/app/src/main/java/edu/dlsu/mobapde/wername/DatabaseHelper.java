@@ -70,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
         contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());
         contentValues.put(Journey.COLUMN_TEXTSENTTO, journey.getTextSentTo());
+        contentValues.put(Journey.COLUMN_MESSAGE, journey.getMessage());
 
         long id = db.insert(Journey.TABLE_NAME,
                 null,
@@ -132,6 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             long eta = c.getLong(c.getColumnIndex(Journey.COLUMN_ESTIMATEDTA));
             long ata = c.getLong(c.getColumnIndex(Journey.COLUMN_ACTUALTA));
             String textSent = c.getString(c.getColumnIndex(Journey.COLUMN_TEXTSENTTO));
+            String msg = c.getString(c.getColumnIndex(Journey.COLUMN_MESSAGE));
 
             j.setSource(source);
             j.setDestination(destination);
@@ -140,6 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             j.setEstimatedTA(eta);
             j.setActualTA(ata);
             j.setTextSentTo(textSent);
+            j.setMessage(msg);
             j.setId(id);
         }
 
@@ -198,12 +201,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieve Journey
-    public Contact getContact(int id) {
+    public Contact getContact(String nameContact) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(Contact.TABLE_NAME,
                 null, // SELECT *
-                Contact.COLUMN_ID + " =? ", // where clause
-                new String[]{id+""}, // where args
+                Contact.COLUMN_NAME + " =? ", // where clause
+                new String[]{nameContact}, // where args
                 null, // groupby
                 null, // having
                 null); // orderby

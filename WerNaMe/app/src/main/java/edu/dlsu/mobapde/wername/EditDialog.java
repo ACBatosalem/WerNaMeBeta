@@ -22,16 +22,16 @@ import android.widget.Toast;
 
 public class EditDialog extends DialogFragment {
     public interface EditDialogListener {
-         void editPlateNum(long id, String plateNum);
-         void cancelEdit();
-        void deleteJourney(long id);
+         public void editPlateNum(long id, String plateNum);
+        public void cancelEdit();
+        public void deleteJourney(long id);
     }
 
     EditDialog.EditDialogListener tListener;
     EditText newPlateNum;
     long journId;
 
-    /*@Override
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         // Verify that the host activity implements the callback interface
@@ -43,7 +43,7 @@ public class EditDialog extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement NoticeDialogListener");
         }
-    }*/
+    }
 
     @NonNull
     @Override
