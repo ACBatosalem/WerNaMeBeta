@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Journey.COLUMN_STARTTIME + " INTEGER, "
                 + Journey.COLUMN_ESTIMATEDTA + " INTEGER, "
                 + Journey.COLUMN_ACTUALTA + " INTEGER, "
-                + Journey.COLUMN_TEXTSENTTO + " TEXT "
+                + Journey.COLUMN_TEXTSENTTO + " TEXT, "
                 + Journey.COLUMN_MESSAGE + " TEXT "
                 +");";
         Log.d("Query", sql);
@@ -84,8 +84,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(Journey.COLUMN_SOURCE, journey.getSource());
-        contentValues.put(Journey.COLUMN_DESTINATION, journey.getSource());
-        contentValues.put(Journey.COLUMN_PLATENUMBER, journey.getDestination());
+        contentValues.put(Journey.COLUMN_DESTINATION, journey.getDestination());
+
+        contentValues.put(Journey.COLUMN_PLATENUMBER, journey.getPlate_number());
         contentValues.put(Journey.COLUMN_STARTTIME, journey.getStartTime());
         contentValues.put(Journey.COLUMN_ESTIMATEDTA, journey.getEstimatedTA());
         contentValues.put(Journey.COLUMN_ACTUALTA, journey.getActualTA());

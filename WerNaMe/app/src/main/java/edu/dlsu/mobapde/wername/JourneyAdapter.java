@@ -38,7 +38,7 @@ public class JourneyAdapter
 
         long remTime = actualTA - startTime;
 
-        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT, Locale.TAIWAN);
+        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT);
         String newTravelTime = ((remTime / (1000*60*60)) % 24) + "h " +
                 ((remTime / (1000*60)) % 60) + "m";
         String newActualTA = df.format(new Date(actualTA));

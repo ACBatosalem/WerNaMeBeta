@@ -20,7 +20,8 @@ import java.util.Locale;
 import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_BR;
 
 public class ArrivedActivity extends AppCompatActivity 
-        implements TextDialog.TextDialogListener, CancelDialog.CancelDialogListener{
+        implements TextDialog.TextDialogListener, CancelDialog.CancelDialogListener,
+        ExtendDialog.ExtendDialogListener{
     Button bExtend, bArrived, bCancel;
     TextView tvStartTime, tvEndTime, tvPlateNum, tvTravelTime, tvMessage, tvSrc, tvDest;
     DatabaseHelper databaseHelper;
@@ -60,7 +61,7 @@ public class ArrivedActivity extends AppCompatActivity
 
             long remTime = travelTime - System.currentTimeMillis();
 
-            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT, Locale.TAIWAN);
+            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT);
             String newTravelTime = ((remTime / (1000*60*60)) % 24) + "h " +
                     ((remTime / (1000*60)) % 60) + "m";
             String newActualTA = df.format(new Date(actualTA));
@@ -161,5 +162,38 @@ public class ArrivedActivity extends AppCompatActivity
         alarmManager.cancel(bcPI);
         bcPI.cancel();
 
+    }
+
+    @Override
+    public void extendTime(long newTime, long id) {
+
+        Journey currJourney = databaseHelper.getJourney(id);
+        currJourney.setEstimatedTA(newTime + currJourney.getEstimatedTA());
+        currJourney.setActualTA(newTime + currJourney.getActualTA());
+        databaseHelper.editJourney(id, currJourney);
+
+        cancelAlarm();
+
+        setAlarm(newTime + currJourney.getEstimatedTA());
+        Log.d("myTag", "extended");
+
+        Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void setAlarm(long elapsedTime) {
+        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT);
+        Log.d("TIMETIME",df.format(new Date(elapsedTime)));
+        AlarmManager alarmManager
+                = (AlarmManager)getSystemService(Service.ALARM_SERVICE);
+        Intent broadcastIntent = new Intent(getBaseContext(), AlarmReceiver.class);
+        PendingIntent bcPI
+                = PendingIntent.getBroadcast(getBaseContext(),
+                PENDINGINTENT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                elapsedTime,
+                bcPI);
     }
 }

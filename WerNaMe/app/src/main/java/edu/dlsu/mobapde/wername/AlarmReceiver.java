@@ -30,7 +30,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setTicker("Need more time?")
                 .setContentTitle("Have you arrived at your destination?")
                 .setContentText("Click here to extend time or end journey.")
-                .setContentIntent(saPI);
+                .setContentIntent(saPI)
+                .setAutoCancel(true);
         notificationManager.notify(CreateActivity.NOTIFICATION_ID_WK, builder.build());
     }
 }

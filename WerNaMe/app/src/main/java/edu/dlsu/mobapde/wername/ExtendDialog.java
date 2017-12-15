@@ -24,12 +24,12 @@ import java.util.ArrayList;
 public class ExtendDialog extends DialogFragment {
 
     public interface ExtendDialogListener {
-        public void extendTime(int minutes, int hours);
+        public void extendTime(long newTime, long id);
     }
 
     ExtendDialog.ExtendDialogListener tListener;
     Spinner etMinutes, etHours;
-    DatabaseHelper databaseHelper;
+   // DatabaseHelper databaseHelper;
 
     @Override
     public void onAttach(Activity activity) {
@@ -51,10 +51,10 @@ public class ExtendDialog extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.dialog_extend, null);
 
-        databaseHelper = new DatabaseHelper(this.getContext());
+
 
         // Spinner for ETA Hours
-        etHours = (Spinner) v.findViewById(R.id.ex_hours);
+        etHours = v.findViewById(R.id.ex_hours);
         ArrayList<String> hours = new ArrayList<>();
         for(int i=0;i<24;i++)
             hours.add(String.valueOf(i));
@@ -66,7 +66,7 @@ public class ExtendDialog extends DialogFragment {
         etHours.setAdapter(hoursArrayAdapter);
 
         // Spinner for ETA Minutes
-        etMinutes = (Spinner) v.findViewById(R.id.ex_minutes);
+        etMinutes = v.findViewById(R.id.ex_minutes);
         ArrayList<String> minutes = new ArrayList<>();
         for(int i=0;i<60;i++)
             minutes.add(String.valueOf(i));
@@ -79,15 +79,16 @@ public class ExtendDialog extends DialogFragment {
 
         AlertDialog.Builder builder
                 = new AlertDialog.Builder(getActivity())
-                .setTitle("Extend Time");
+                .setTitle("Extend Time")
+                .setView(v);
 
         builder.setPositiveButton("Extend", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int minutes = Integer.parseInt(etMinutes.getSelectedItem().toString());
                 int hours = Integer.parseInt(etHours.getSelectedItem().toString());
-                long startTime = System.currentTimeMillis();
-                long elapsedTime = minutes*1000*60 + hours*60*60*1000 + startTime;
+
+                long elapsedTime = minutes*1000*60 + hours*60*60*1000;
 
                 SharedPreferences dsp =
                         PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -99,9 +100,7 @@ public class ExtendDialog extends DialogFragment {
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Journey currJourney = databaseHelper.getJourney(trip);
-                    currJourney.setEstimatedTA(elapsedTime);
-                    databaseHelper.editJourney(trip, currJourney);
+                    tListener.extendTime(elapsedTime, trip);
                 }
             }
         });
