@@ -22,13 +22,14 @@ import android.widget.Toast;
 
 public class EditDialog extends DialogFragment {
     public interface EditDialogListener {
-        public void editPlateNum(long id, String plateNum);
+         void editPlateNum(long id, String plateNum);
+         void cancelEdit();
+        void deleteJourney(long id);
     }
 
     EditDialog.EditDialogListener tListener;
     EditText newPlateNum;
     long journId;
-     DatabaseHelper databaseHelper;
 
     /*@Override
     public void onAttach(Activity activity) {
@@ -51,7 +52,6 @@ public class EditDialog extends DialogFragment {
                 .inflate(R.layout.dialog_edit, null);
 
         newPlateNum = v.findViewById(R.id.edit_plateNum);
-        databaseHelper = new DatabaseHelper(getContext());
 
         AlertDialog.Builder builder
                 = new AlertDialog.Builder(getActivity())
@@ -73,21 +73,24 @@ public class EditDialog extends DialogFragment {
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Journey j = databaseHelper.getJourney(trip);
-                    j.setPlate_number(newPlate);
-                    databaseHelper.editJourney(trip, j);
 
-                    SharedPreferences.Editor dspEditor = dsp.edit();
-                    dspEditor.remove("editJourney");
-                    dspEditor.commit();
+                    tListener.editPlateNum(trip, newPlate);
                 }
             }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dismiss();
+                tListener.cancelEdit();
+            }
+        })
+        .setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SharedPreferences dsp =
+                        PreferenceManager.getDefaultSharedPreferences(getContext());
+                long trip = dsp.getLong("editJourney", -1);
+                tListener.deleteJourney(trip);
             }
         });
         return builder.create();

@@ -10,7 +10,7 @@
         android:id="@+id/tv_id"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
     <ImageView
         android:layout_width="25sp"

@@ -24,8 +24,6 @@
         <activity android:name=".ContactActivity"/>
         <activity android:name=".CreateActivity"/>
 
-        <activity android:name=".ExtendActivity"/>
-
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"

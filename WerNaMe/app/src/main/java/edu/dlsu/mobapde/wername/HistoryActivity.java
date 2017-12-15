@@ -16,10 +16,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity
+        implements EditDialog.EditDialogListener{
     RecyclerView rvJourney;
 
     DatabaseHelper databaseHelper;
+    JourneyAdapter js;
 
     TextView createText, contactText, historyText, noContents;
     @Override
@@ -78,7 +80,7 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        JourneyAdapter js = new JourneyAdapter(getBaseContext(), databaseHelper.getAllJourneysCursor());
+        js = new JourneyAdapter(getBaseContext(), databaseHelper.getAllJourneysCursor());
         js.setOnItemClickListener(new JourneyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Journey j) {
@@ -95,5 +97,45 @@ public class HistoryActivity extends AppCompatActivity {
         rvJourney.setAdapter(js);
         rvJourney.setLayoutManager(new LinearLayoutManager(
                 getBaseContext(),LinearLayoutManager.VERTICAL,false));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        js.changeCursor(databaseHelper.getAllJourneysCursor());
+        js.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void editPlateNum(long id, String plateNum) {
+        SharedPreferences dsp =
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Journey j = databaseHelper.getJourney(id);
+        j.setPlate_number(plateNum);
+        databaseHelper.editJourney(id, j);
+
+        SharedPreferences.Editor dspEditor = dsp.edit();
+        dspEditor.remove("editJourney");
+        dspEditor.commit();
+    }
+
+    @Override
+    public void cancelEdit() {
+        SharedPreferences dsp =
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor dspEditor = dsp.edit();
+        dspEditor.remove("editJourney");
+        dspEditor.commit();
+    }
+
+    @Override
+    public void deleteJourney(long id) {
+        databaseHelper.removeJourney(id);
+        SharedPreferences dsp =
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor dspEditor = dsp.edit();
+        dspEditor.remove("editJourney");
+        dspEditor.commit();
     }
 }

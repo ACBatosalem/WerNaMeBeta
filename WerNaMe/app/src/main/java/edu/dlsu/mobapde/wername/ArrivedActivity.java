@@ -25,6 +25,7 @@ public class ArrivedActivity extends AppCompatActivity
     Button bExtend, bArrived, bCancel;
     TextView tvStartTime, tvEndTime, tvPlateNum, tvTravelTime, tvMessage, tvSrc, tvDest;
     DatabaseHelper databaseHelper;
+    long remTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,7 @@ public class ArrivedActivity extends AppCompatActivity
             long startTime = j.getStartTime();
             long travelTime = j.getEstimatedTA();
             long actualTA = j.getActualTA();
-
-            long remTime = travelTime - System.currentTimeMillis();
+            remTime = travelTime - System.currentTimeMillis();
 
             DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT);
             String newTravelTime = ((remTime / (1000*60*60)) % 24) + "h " +
