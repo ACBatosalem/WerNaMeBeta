@@ -105,7 +105,7 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="45dp"
+                android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/license_plate_3" />
