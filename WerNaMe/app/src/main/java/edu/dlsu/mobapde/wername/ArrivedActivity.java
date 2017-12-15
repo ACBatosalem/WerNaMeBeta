@@ -174,7 +174,7 @@ public class ArrivedActivity extends AppCompatActivity
 
         cancelAlarm();
 
-        setAlarm(newTime + currJourney.getEstimatedTA());
+        setAlarm(currJourney.getEstimatedTA());
         Log.d("myTag", "extended");
 
         Intent i = new Intent(getBaseContext(), ArrivedActivity.class);
