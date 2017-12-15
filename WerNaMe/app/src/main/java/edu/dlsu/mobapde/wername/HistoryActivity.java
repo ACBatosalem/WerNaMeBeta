@@ -144,5 +144,9 @@ public class HistoryActivity extends AppCompatActivity
         SharedPreferences.Editor dspEditor = dsp.edit();
         dspEditor.remove("editJourney");
         dspEditor.commit();
+
+        Intent i = new Intent(getBaseContext(), HistoryActivity.class);
+        startActivity(i);
+        finish();
     }
 }

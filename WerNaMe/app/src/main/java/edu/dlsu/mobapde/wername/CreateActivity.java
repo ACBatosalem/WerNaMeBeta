@@ -197,7 +197,7 @@ public class CreateActivity extends AppCompatActivity
                             Toast.LENGTH_SHORT).show();
                 } else {
                     DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
-                    message += src + "->" + dest + ".ETA: " + df.format(new Date(elapsedTime));
+                    message += ". " + src + "->" + dest + ".ETA: " + df.format(new Date(elapsedTime));
                     long id = addJourney(src, dest, plateNum, startTime, elapsedTime, message);
                     // sendSMSMessage();
                     setAlarm(elapsedTime);
