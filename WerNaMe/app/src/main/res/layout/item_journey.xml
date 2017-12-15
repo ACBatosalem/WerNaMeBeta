@@ -9,8 +9,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
         android:layout_marginTop="10dp"
         >
 
@@ -34,6 +32,14 @@
             android:text="9:00 AM"
             android:textColor="@color/colorGrey"
             android:textSize="17sp" />
+
+        <ImageView
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/edit"/>
     </RelativeLayout>
 
     <ImageView
