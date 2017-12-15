@@ -25,10 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
+
+        android:elevation="5dp"
         >
         <TextView
             android:id="@+id/create"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Create"
             android:textColor="@color/colorGrey"
@@ -40,7 +42,7 @@
             />
         <TextView
             android:id="@+id/contacts"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Contacts"
             android:textColor="@color/colorGrey"
@@ -52,7 +54,7 @@
             android:background="@drawable/border_bottom"/>
         <TextView
             android:id="@+id/history"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="History"
             android:textColor="@color/colorGrey"

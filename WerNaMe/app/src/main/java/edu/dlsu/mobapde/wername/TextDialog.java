@@ -41,7 +41,7 @@ public class TextDialog extends DialogFragment{
 
         AlertDialog.Builder builder
                 = new AlertDialog.Builder(getActivity())
-                .setTitle("Create Journey")
+                .setTitle("Start Journey")
                 .setMessage("Do you want to send a text?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     @Override

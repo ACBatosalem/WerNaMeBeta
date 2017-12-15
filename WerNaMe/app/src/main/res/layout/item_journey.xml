@@ -40,7 +40,7 @@
             android:layout_centerHorizontal="true"
             android:text="9:00 AM"
             android:textColor="@color/colorGrey"
-            android:textSize="17sp" />
+            android:textSize="13sp" />
 
 
     </RelativeLayout>
@@ -79,7 +79,7 @@
             android:layout_centerHorizontal="true"
             android:text="9:00 PM"
             android:textColor="@color/colorGrey"
-            android:textSize="17sp" />
+            android:textSize="13sp" />
     </RelativeLayout>
 
     <LinearLayout
