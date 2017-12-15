@@ -238,6 +238,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllJourneysCursor() {
         SQLiteDatabase db = getReadableDatabase();
 
-        return db.query(Journey.TABLE_NAME, null, null, null, null, null, null);
+        return db.query(Journey.TABLE_NAME, null, null, null, null, null, Journey.COLUMN_ACTUALTA + " DESC");
     }
 }
