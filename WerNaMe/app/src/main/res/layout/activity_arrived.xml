@@ -25,14 +25,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="10dp"
-                    >
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:id="@+id/tv_src"
@@ -59,7 +61,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/itinerary" />
+                    android:src="@drawable/street" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -99,7 +101,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/pnumber"
@@ -110,7 +112,7 @@
                         android:layout_width="55dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/license_plate_2" />
+                        android:src="@drawable/license_plate_3" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -123,7 +125,7 @@
                         />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/time"
@@ -132,7 +134,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/hourglass"
+                        android:src="@drawable/hourglass_3"
                         android:layout_gravity="center"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -145,7 +147,7 @@
                         />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/sentto"
@@ -154,7 +156,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/mail_2"
+                        android:src="@drawable/mail_3"
                         android:layout_gravity="center"
                         />
                     <TextView

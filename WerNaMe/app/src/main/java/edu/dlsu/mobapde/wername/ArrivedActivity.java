@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static edu.dlsu.mobapde.wername.CreateActivity.PENDINGINTENT_BR;
 
@@ -59,7 +60,7 @@ public class ArrivedActivity extends AppCompatActivity
 
             long remTime = travelTime - System.currentTimeMillis();
 
-            DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
+            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT, Locale.TAIWAN);
             String newTravelTime = ((remTime / (1000*60*60)) % 24) + "h " +
                     ((remTime / (1000*60)) % 60) + "m";
             String newActualTA = df.format(new Date(actualTA));
@@ -95,7 +96,7 @@ public class ArrivedActivity extends AppCompatActivity
             public void onClick(View view) {
 
 
-                TextDialog td = new TextDialog();
+                ArrivedDialog td = new ArrivedDialog();
                 td.show(getSupportFragmentManager(), "");
 
             }

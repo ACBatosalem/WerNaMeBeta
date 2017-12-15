@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Angel on 01/11/2017.
@@ -37,7 +38,7 @@ public class JourneyAdapter
 
         long remTime = actualTA - startTime;
 
-        DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
+        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT, Locale.TAIWAN);
         String newTravelTime = ((remTime / (1000*60*60)) % 24) + "h " +
                 ((remTime / (1000*60)) % 60) + "m";
         String newActualTA = df.format(new Date(actualTA));
