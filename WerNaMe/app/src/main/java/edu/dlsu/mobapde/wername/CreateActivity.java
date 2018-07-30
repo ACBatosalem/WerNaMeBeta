@@ -52,7 +52,7 @@ public class CreateActivity extends AppCompatActivity
     DatabaseHelper databaseHelper;
     TextView createText, contactText, historyText;
     public AlarmManager alarmManager;
-    String contactName;
+    String contactName = "";
 
     public static final int NOTIFICATION_ID_WK = 0;
     public static final int NOTIFICATION_ID_TEXT = 1;
@@ -191,7 +191,7 @@ public class CreateActivity extends AppCompatActivity
                 Log.d("AYAW NA", message);
 
                 if(src.equals("Source") || dest.equals("Destination") || plateNum.equals("") ||
-                        (minutes == 0 && hours == 0) || message.equals("")) {
+                        (minutes == 0 && hours == 0) || message.equals("") || contactName.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             "Please fill out all fields",
                             Toast.LENGTH_SHORT).show();

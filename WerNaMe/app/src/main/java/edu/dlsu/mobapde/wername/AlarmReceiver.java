@@ -48,7 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 PENDINGINTENT_TEXT_BR, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 30*1000*60,
+                System.currentTimeMillis() + 3*1000*60,
                 bcPI);
 
         boolean alarmUp = (bcPI != null);
